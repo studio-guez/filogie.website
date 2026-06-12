@@ -1,0 +1,19 @@
+@import './fonts.css' layer(base);
+
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@source "../views";
+
+@theme {
+    --font-sans: 'Rauschen-B', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+@layer utilities {
+}
+
+@layer components {
+}
