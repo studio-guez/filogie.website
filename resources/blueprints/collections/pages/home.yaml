@@ -29,6 +29,7 @@ tabs:
                 - italic
                 - unorderedlist
                 - orderedlist
+                - removeformat
               remove_empty_nodes: trim
               type: bard
               display: Introduction
