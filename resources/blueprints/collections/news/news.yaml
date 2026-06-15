@@ -1,0 +1,27 @@
+title: Actualité
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: news_types
+            field:
+              type: terms
+              taxonomies:
+                - news_types
+              display: "Types d'actualités"
+              mode: select

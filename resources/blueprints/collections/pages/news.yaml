@@ -1,0 +1,5 @@
+title: News
+tabs:
+  main:
+    display: Principal
+    fields: {}
