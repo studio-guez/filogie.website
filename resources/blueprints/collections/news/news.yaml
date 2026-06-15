@@ -12,11 +12,42 @@ tabs:
               required: true
               validate:
                 - required
+          -
+            handle: description
+            field:
+              buttons:
+                - anchor
+                - underline
+                - strikethrough
+                - superscript
+                - subscript
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+                - removeformat
+              remove_empty_nodes: trim
+              type: bard
+              display: Description
+              validate:
+                - required
   sidebar:
     display: Sidebar
     sections:
       -
         fields:
+          -
+            handle: featured_image
+            field:
+              container: actions
+              restrict: true
+              max_files: 1
+              min_files: 1
+              type: assets
+              display: 'Image à la une'
+              validate:
+                - required
+                - 'mimes:jpg,jpeg,png,svg,webp'
           -
             handle: news_types
             field:
@@ -25,3 +56,11 @@ tabs:
                 - news_types
               display: "Types d'actualités"
               mode: select
+          -
+            handle: date
+            field:
+              type: date
+              required: true
+              default: now
+              validate:
+                - required

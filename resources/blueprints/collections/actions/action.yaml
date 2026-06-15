@@ -20,7 +20,7 @@ tabs:
               validate:
                 - required
           -
-            handle: descritpion
+            handle: description
             field:
               buttons:
                 - anchor
@@ -44,17 +44,6 @@ tabs:
       -
         fields:
           -
-            handle: actions_types
-            field:
-              type: terms
-              taxonomies:
-                - actions_types
-              display: "Types d'actions"
-              mode: select
-              max_items: 1
-              validate:
-                - required
-          -
             handle: featured_image
             field:
               container: actions
@@ -66,3 +55,22 @@ tabs:
               validate:
                 - required
                 - 'mimes:jpg,jpeg,png,svg,webp'
+          -
+            handle: actions_types
+            field:
+              type: terms
+              taxonomies:
+                - actions_types
+              display: "Types d'actions"
+              mode: select
+              max_items: 1
+              validate:
+                - required
+          -
+            handle: date
+            field:
+              type: date
+              required: true
+              default: now
+              validate:
+                - required
