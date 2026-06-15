@@ -32,3 +32,4 @@ fields:
       always_save: false
       validate:
         - 'mimes:jpg,jpeg,png'
+      restrict: true
