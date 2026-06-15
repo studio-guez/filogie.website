@@ -93,10 +93,10 @@ return [
             'throw' => false,
         ],
 
-        'featured' => [
+        'og' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/featured'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/featured',
+            'root' => storage_path('app/public/og'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/og',
             'visibility' => 'public',
             'throw' => false,
         ],

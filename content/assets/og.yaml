@@ -1,0 +1,4 @@
+title: 'Images OG'
+disk: og
+validate:
+  - 'mimes:png,webp,jpg,jpeg'
