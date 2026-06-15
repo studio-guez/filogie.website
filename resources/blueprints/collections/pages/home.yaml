@@ -5,12 +5,14 @@ tabs:
       -
         fields:
           -
-            handle: title_h1
+            handle: image_title_h1
             field:
-              type: text
-              display: 'Titre affiché'
+              container: assets
+              type: assets
+              display: 'Titre image'
               validate:
                 - required
+                - 'mimes:svg'
           -
             handle: intro
             field:
@@ -29,27 +31,48 @@ tabs:
               display: Introduction
               validate:
                 - required
-          -
-            handle: image_title_h1
-            field:
-              container: assets
-              type: assets
-              display: 'Image titre'
-              validate:
-                - required
-                - 'mimes:svg'
   'nos missions':
     display: 'Nos missions'
     sections:
       -
         fields:
           -
-            handle: missions_title
+            handle: missions_image_title
             field:
-              type: text
-              display: Titre
+              container: assets
+              type: assets
+              display: 'Titre image'
               validate:
                 - required
+                - 'mimes:svg'
+  actions:
+    display: 'Nos actions'
+    sections:
+      -
+        fields:
+          -
+            handle: actions_image_title
+            field:
+              container: assets
+              type: assets
+              display: 'Titre image'
+              validate:
+                - required
+                - 'mimes:svg'
+  news:
+    display: 'Nos actualités'
+    sections:
+      -
+        fields:
+          -
+            handle: news_image_title
+            field:
+              container: assets
+              type: assets
+              display: 'Titre image'
+              validate:
+                - required
+                - 'mimes:svg'
   sidebar:
     display: Sidebar
     sections:
