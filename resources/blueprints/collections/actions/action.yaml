@@ -50,12 +50,14 @@ tabs:
                 - actions_types
               display: "Types d'actions"
               mode: select
+              max_items: 1
+              validate:
+                - required
           -
             handle: featured_image
             field:
               container: actions
               restrict: true
-              show_filename: true
               max_files: 1
               min_files: 1
               type: assets
