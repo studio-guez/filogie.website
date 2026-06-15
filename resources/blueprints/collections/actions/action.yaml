@@ -1,6 +1,7 @@
 title: Action
 tabs:
   main:
+    display: Principal
     sections:
       -
         fields:
@@ -9,27 +10,35 @@ tabs:
             field:
               type: text
               required: true
+              validate:
+                - required
           -
-            handle: content
+            handle: overtitle
             field:
-              type: markdown
-              display: Content
-              localizable: true
+              type: text
+              display: Sur-titre
+              validate:
+                - required
           -
-            handle: author
+            handle: descritpion
             field:
-              type: users
-              display: Author
-              default: current
-              localizable: true
-              max_items: 1
-          -
-            handle: template
-            field:
-              type: template
-              display: Template
-              localizable: true
+              buttons:
+                - anchor
+                - underline
+                - strikethrough
+                - superscript
+                - subscript
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+              remove_empty_nodes: trim
+              type: bard
+              display: Description
+              validate:
+                - required
   sidebar:
+    display: Sidebar
     sections:
       -
         fields:
@@ -41,3 +50,16 @@ tabs:
                 - actions_types
               display: "Types d'actions"
               mode: select
+          -
+            handle: featured_image
+            field:
+              container: actions
+              restrict: true
+              show_filename: false
+              max_files: 1
+              min_files: 1
+              type: assets
+              display: 'Image à la une'
+              validate:
+                - required
+                - 'mimes:jpg,jpeg,png,svg,webp'
