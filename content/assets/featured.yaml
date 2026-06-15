@@ -1,0 +1,4 @@
+title: 'Images à la une'
+disk: featured
+validate:
+  - 'mimes:png,webp,jpg,jpeg'

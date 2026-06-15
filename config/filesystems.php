@@ -93,6 +93,14 @@ return [
             'throw' => false,
         ],
 
+        'featured' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/featured'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/featured',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
     ],
 
     /*
