@@ -7,7 +7,7 @@ tabs:
           -
             handle: image_title_h1
             field:
-              container: assets
+              container: titles
               type: assets
               display: 'Titre image'
               validate:
@@ -39,7 +39,7 @@ tabs:
           -
             handle: missions_image_title
             field:
-              container: assets
+              container: titles
               type: assets
               display: 'Titre image'
               validate:
@@ -53,7 +53,7 @@ tabs:
           -
             handle: actions_image_title
             field:
-              container: assets
+              container: titles
               type: assets
               display: 'Titre image'
               validate:
@@ -67,7 +67,7 @@ tabs:
           -
             handle: news_image_title
             field:
-              container: assets
+              container: titles
               type: assets
               display: 'Titre image'
               validate:
