@@ -41,7 +41,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,
@@ -61,18 +61,34 @@ return [
             // 'visibility' => 'public', // https://statamic.dev/assets#container-visibility
         ],
 
-        'favicons' => [
+        'assets' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/favicons'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage/favicons',
+            'root' => storage_path('app/public/assets'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/assets',
             'visibility' => 'public',
             'throw' => false,
         ],
 
-        'assets' => [
+        'favicons' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/assets'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage/assets',
+            'root' => storage_path('app/public/favicons'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/favicons',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'titles' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/titles'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/titles',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'actions' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/actions'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/actions',
             'visibility' => 'public',
             'throw' => false,
         ],

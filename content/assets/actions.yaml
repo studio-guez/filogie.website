@@ -1,0 +1,13 @@
+title: Actions
+disk: actions
+validate:
+  - 'mimes:svg,png,webp,jpg,jpeg'
+warm_presets:
+  - full
+  - full_2x
+  - full_fallback
+  - full_fallback_2x
+  - half
+  - half_2x
+  - half_fallback
+  - half_fallback_2x
