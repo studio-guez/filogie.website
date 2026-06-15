@@ -55,7 +55,7 @@ tabs:
             field:
               container: actions
               restrict: true
-              show_filename: false
+              show_filename: true
               max_files: 1
               min_files: 1
               type: assets

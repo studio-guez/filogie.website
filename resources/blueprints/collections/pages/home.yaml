@@ -13,6 +13,9 @@ tabs:
               validate:
                 - required
                 - 'mimes:svg'
+              restrict: true
+              max_files: 1
+              min_files: 1
           -
             handle: intro
             field:
@@ -45,6 +48,9 @@ tabs:
               validate:
                 - required
                 - 'mimes:svg'
+              restrict: true
+              max_files: 1
+              min_files: 1
   actions:
     display: 'Nos actions'
     sections:
@@ -59,6 +65,9 @@ tabs:
               validate:
                 - required
                 - 'mimes:svg'
+              restrict: true
+              max_files: 1
+              min_files: 1
   news:
     display: 'Nos actualités'
     sections:
@@ -73,6 +82,9 @@ tabs:
               validate:
                 - required
                 - 'mimes:svg'
+              restrict: true
+              max_files: 1
+              min_files: 1
   sidebar:
     display: Sidebar
     sections:
