@@ -2,10 +2,17 @@
 
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
-@source "../views";
+@source "../views", inline("bg-{actions-transmit-bg, actions-explore-bg, actions-experiment-bg}"), inline("text-{actions-transmit, actions-explore, actions-experiment}");
 
 @theme {
     --font-sans: 'Rauschen-B', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-actions-transmit-bg: #FF9F5A;
+    --color-actions-transmit: #000000;
+    --color-actions-explore-bg: #310195;
+    --color-actions-explore: #FFFFFF;
+    --color-actions-experiment-bg: #FDFB06;
+    --color-actions-experiment: #000000;
 }
 
 [x-cloak] {
