@@ -1,0 +1,45 @@
+title: "Types d'action"
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+          -
+            handle: description
+            field:
+              buttons:
+                - anchor
+                - underline
+                - strikethrough
+                - superscript
+                - subscript
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+              remove_empty_nodes: trim
+              type: bard
+              display: Introduction
+              validate:
+                - required
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              required: true
+              validate:
+                - required
+                - 'max:200'
