@@ -11,19 +11,33 @@
         <div>
             {{ if address_contact:email }}
             <h2 class="font-bold">{{ footer:contact_title }}</h2>
-            <a href="mailto:{{ address_contact:email }}" class="underline inline-block mb-2.5">{{ address_contact:email }}</a>
+            <a href="mailto:{{ address_contact:email }}" class="inline-block mb-2.5 underline">{{ address_contact:email }}</a>
             {{ /if }}
             <h2 class="font-bold">{{ footer:meet_title }}</h2>
-            <address class="not-italic mb-2.5">{{ address_contact:visit_street_address }}<br>
+            <address class="not-italic mb-2.5">
+                {{ if address_contact:visit_google_maps_link }}
+                <a href="{{ address_contact:visit_google_maps_link }}" target="_blank" rel="noopener noreferrer" class="underline">
+                {{ /if }}
+                {{ address_contact:visit_street_address }}<br>
                 {{ address_contact:visit_postal_code }} {{ address_contact:visit_city }}
+                {{ if address_contact:visit_google_maps_link }}
+                </a>
+                {{ /if }}
             </address>
             <h2 class="font-bold">{{ footer:write_title }}</h2>
-            <address class="not-italic not-last:mb-2.5">{{ address_contact:street_address }}<br>
+            <address class="not-italic not-last:mb-2.5">
+                {{ if address_contact:google_maps_link }}
+                <a href="{{ address_contact:google_maps_link }}" target="_blank" rel="noopener noreferrer" class="underline">
+                {{ /if }}
+                {{ address_contact:street_address }}<br>
                 {{ address_contact:postal_code }} {{ address_contact:city }}
+                {{ if address_contact:google_maps_link }}
+                </a>
+                {{ /if }}
             </address>
             {{ if address_contact:phone }}
             <h2 class="font-bold">{{ footer:call_title }}</h2>
-            <a href="tel:{{ address_contact:phone | replace: ' ', '' | replace: '(0)', '' }}" class="underline inline-block mb-2.5">{{ address_contact:phone }}</a>
+            <a href="tel:{{ address_contact:phone | replace: ' ', '' | replace: '(0)', '' }}" class="inline-block mb-2.5 underline">{{ address_contact:phone }}</a>
             {{ /if }}
         </div>
     </div>
