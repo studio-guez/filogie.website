@@ -11,13 +11,14 @@
 
     --color-black: #000000;
     --color-white: #FFFFFF;
+    --color-yellow: #FDFB06;
 
     --color-actions-transmit-bg: #FF9F5A;
-    --color-actions-transmit: #000000;
+    --color-actions-transmit: var(--color-black);
     --color-actions-explore-bg: #310195;
-    --color-actions-explore: #FFFFFF;
-    --color-actions-experiment-bg: #FDFB06;
-    --color-actions-experiment: #000000;
+    --color-actions-explore: var(--color-white);
+    --color-actions-experiment-bg: var(--color-yellow);
+    --color-actions-experiment: var(--color-black);
 }
 
 [x-cloak] {
