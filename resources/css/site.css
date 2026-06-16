@@ -5,6 +5,7 @@
 @source "../views";
 @source inline("{,hover:}{bg,border}-{actions-transmit-bg,actions-explore-bg,actions-experiment-bg}{,!}");
 @source inline("{,hover:}text-{actions-transmit,actions-explore,actions-experiment}{,-bg}{,!}");
+@source inline("bg-principles-{1,2,3,4,5,6}");
 
 @theme {
     --font-sans: 'Rauschen-B', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -19,6 +20,13 @@
     --color-actions-explore: var(--color-white);
     --color-actions-experiment-bg: var(--color-yellow);
     --color-actions-experiment: var(--color-black);
+
+    --color-principles-1: #B465D7;
+    --color-principles-2: #E98110;
+    --color-principles-3: #BC88F3;
+    --color-principles-4: #FEED01;
+    --color-principles-5: #FE9F99;
+    --color-principles-6: #FEA642;
 }
 
 [x-cloak] {
@@ -30,7 +38,7 @@
         @apply px-5 sm:px-7.5 lg:px-10;
     }
     .text-title-lg{
-        @apply text-5xl sm:text-7xl lg:text-9xl;
+        @apply text-2xl sm:text-3xl lg:text-5xl xl:text-7xl 2xl:text-9xl;
     }
     .text-body-lg {
         @apply text-xl sm:text-2xl lg:text-3xl;
