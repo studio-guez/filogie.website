@@ -13,7 +13,7 @@
     {{ collection:actions sort="date:desc" }}
             <hr class="my-10" x-show="activeFilter === null {{ actions_types }}|| activeFilter === '{{ slug }}'{{ /actions_types }}">
             <article class="col-span-6 lg:col-span-3" x-show="activeFilter === null {{ actions_types }}|| activeFilter === '{{ slug }}'{{ /actions_types }}">
-                <div class="aspect-3/1 w-full mb-5">
+                <div class="aspect-3/1 w-full mb-7.5">
                     {{ partial:asset :image="featured_image:id" :alt_glide="featured_image:_alt" class="w-full h-full object-cover rounded-lg" preset="half" }}
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-5">
@@ -24,7 +24,7 @@
                         {{ if overtitle }}
                         <div class="text-body-lg mb-5">{{ overtitle }}</div>
                         {{ /if }}
-                        <h2 class="font-bold text-body-lg mb-5">{{ title }}</h2>
+                        <h2 class="font-bold text-body-lg max-lg:mb-5">{{ title }}</h2>
                     </div>
                     <div class="bard">{{ description }}</div>
                 </div>
