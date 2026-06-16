@@ -27,7 +27,7 @@
 
 @layer utilities {
     .px-base {
-        @apply px-4 sm:px-6 lg:px-8;
+        @apply px-5 sm:px-7.5 lg:px-10;
     }
     .text-title-lg{
         @apply text-5xl sm:text-7xl lg:text-9xl;
