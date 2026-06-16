@@ -2,7 +2,7 @@
     <h1 class="mb-30">{{ partial:asset :image="image_title_h1:id" :alt_glide="image_title_h1:_alt" class="w-full h-full object-cover" preset="full" }}</h1>
     {{ collection:news sort="date:desc" }}
             <article class="col-span-6 lg:col-span-3">
-                <div class="flex items-center justify-between gap-2.5 mb-5">
+                <div class="flex items-start lg:items-center justify-between max-lg:flex-col gap-2.5 mb-5">
                     <div class="flex items-center gap-2.5">
                         {{ news_types }}
                         <div class="border leading-none rounded-full py-1.5 px-3 trim-text w-fit">{{ title }}</div>
