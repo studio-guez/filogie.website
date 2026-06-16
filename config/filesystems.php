@@ -101,6 +101,14 @@ return [
             'throw' => false,
         ],
 
+        'news' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/news'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/news',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
     ],
 
     /*
