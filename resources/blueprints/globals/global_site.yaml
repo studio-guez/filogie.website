@@ -76,7 +76,7 @@ tabs:
           -
             handle: logo
             field:
-              container: assets
+              container: favicons
               max_files: 1
               min_files: 1
               type: assets
