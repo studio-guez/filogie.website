@@ -13,6 +13,31 @@ tabs:
               validate:
                 - required
       -
+        display: Logo
+        fields:
+          -
+            handle: logo_full
+            field:
+              container: logos
+              max_files: 1
+              min_files: 1
+              type: assets
+              display: 'Logo entier'
+              validate:
+                - required
+                - 'mimes:svg,png,webp'
+          -
+            handle: logo_small
+            field:
+              container: logos
+              max_files: 1
+              min_files: 1
+              type: assets
+              display: 'Logo petit'
+              validate:
+                - required
+                - 'mimes:svg,png,webp'
+      -
         display: 'Favicon light'
         fields:
           -
@@ -76,7 +101,7 @@ tabs:
           -
             handle: logo
             field:
-              container: favicons
+              container: logos
               max_files: 1
               min_files: 1
               type: assets
