@@ -37,17 +37,40 @@ tabs:
       -
         fields:
           -
+            handle: media
+            field:
+              inline_label: Non
+              inline_label_when_true: Oui
+              type: toggle
+              display: Media
+              validate:
+                - required
+          -
             handle: featured_image
             field:
-              container: actions
+              container: news
               restrict: true
               max_files: 1
               min_files: 1
               type: assets
               display: 'Image à la une'
               validate:
+                - sometimes
                 - required
                 - 'mimes:jpg,jpeg,png,svg,webp'
+          -
+            handle: youtube_link
+            field:
+              type: text
+              display: 'Lien youtube'
+              validate:
+                - required
+                - sometimes
+                - url
+              if:
+                media: 'equals true'
+      -
+        fields:
           -
             handle: news_types
             field:
@@ -56,6 +79,8 @@ tabs:
                 - news_types
               display: "Types d'actualités"
               mode: select
+              validate:
+                - required
           -
             handle: date
             field:
@@ -64,3 +89,18 @@ tabs:
               default: now
               validate:
                 - required
+      -
+        display: 'Lien externe'
+        fields:
+          -
+            handle: external_link
+            field:
+              type: text
+              display: Lien
+              validate:
+                - url
+          -
+            handle: external_link_text
+            field:
+              type: text
+              display: Texte
