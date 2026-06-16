@@ -29,7 +29,7 @@
         @apply px-4 sm:px-6 lg:px-8;
     }
     .text-body-lg {
-        @apply text-lg sm:text-xl lg:text-2xl;
+        @apply text-xl sm:text-2xl lg:text-3xl;
     }
     .text-body-md {
         @apply text-base sm:text-lg lg:text-xl;
