@@ -6,15 +6,29 @@ tabs:
       -
         fields:
           -
+            handle: image_title_h1
+            field:
+              container: titles
+              type: assets
+              display: 'Titre image'
+              validate:
+                - required
+                - 'mimes:svg'
+              restrict: true
+              max_files: 1
+              min_files: 1
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
             handle: title
             field:
               type: text
               required: true
               validate:
                 - required
-  sidebar:
-    display: Sidebar
-    sections:
       -
         fields:
           -
