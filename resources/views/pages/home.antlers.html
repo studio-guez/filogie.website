@@ -1,5 +1,5 @@
 <section class="px-base pt-30 grid grid-cols-8 gap-x-5">
-    <div class="font-bold text-body-lg col-start-1 md:col-start-2 lg:col-start-3 xl:col-start-4 col-end-9">
+    <div class="font-bold text-body-lg col-start-1 md:col-start-2 lg:col-start-3 xl:col-start-4 col-end-9 bard">
         {{ intro }}
     </div>
 </section>
@@ -9,8 +9,8 @@
     {{ taxonomy:actions_types }}
     <div class="not-last:mb-10">
         <h3 class="font-bold text-actions-{{ color_slug }} bg-actions-{{ color_slug }}-bg leading-none rounded-full py-2 px-5 trim-text mb-2.5 w-fit">{{ title }}</h3>
-        <div>
-            {{ intro }}
+        <div class="bard">
+            {{ description }}
         </div>
     </div>
     {{ /taxonomy:actions_types }}
