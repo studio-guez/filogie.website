@@ -1,0 +1,24 @@
+
+<section class="px-base pt-30 pb-10">
+    <h1 class="sr-only">{{ title }}</h1>
+    {{ collection:actions sort="date:desc" }}
+        <hr class="my-10">
+        <article class="col-span-6 lg:col-span-3">
+            <div class="aspect-3/1 w-full mb-5">
+                {{ partial:asset :image="featured_image:id" :alt_glide="featured_image:_alt" class="w-full h-full object-cover rounded-lg" preset="half" }}
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-5">
+                <div>
+                    {{ actions_types }}
+                    <div class="text-actions-{{ color_slug }} bg-actions-{{ color_slug }}-bg leading-none rounded-full py-1.5 px-3 trim-text mb-5 w-fit">{{ title }}</div>
+                    {{ /actions_types }}
+                    {{ if overtitle }}
+                    <div class="text-body-lg mb-5">{{ overtitle }}</div>
+                    {{ /if }}
+                    <h2 class="font-bold text-body-lg mb-5">{{ title }}</h2>
+                </div>
+                <div class="bard">{{ description }}</div>
+            </div>
+        </article>
+    {{ /collection:actions }}
+</section>
