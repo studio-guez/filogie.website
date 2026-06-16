@@ -29,6 +29,9 @@
     .px-base {
         @apply px-4 sm:px-6 lg:px-8;
     }
+    .text-title-lg{
+        @apply text-5xl sm:text-7xl lg:text-9xl;
+    }
     .text-body-lg {
         @apply text-xl sm:text-2xl lg:text-3xl;
     }
