@@ -8,7 +8,9 @@
                         <div class="border leading-none rounded-full py-1.5 px-3 trim-text w-fit">{{ title }}</div>
                         {{ /news_types }}
                     </div>
-                    <div class="border leading-none rounded-full py-1.5 px-3 trim-text w-fit">{{ date | format="d.m.Y" }}{{ if end_date }}-{{ end_date | format="d.m.Y" }}{{ /if }}</div>
+                    <div class="border leading-none rounded-full py-1.5 px-3 trim-text w-fit">
+                        {{ date | format="d.m.Y" }}{{ if end_date }}-{{ end_date | format="d.m.Y" }}{{ /if }}
+                    </div>
                 </div>
                 {{ if youtube_link }}
                 <div class="aspect-video w-full mb-7.5">
