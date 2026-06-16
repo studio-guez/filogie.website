@@ -106,6 +106,16 @@
                 "postalCode": "{{ address_contact:postal_code }}",
                 "addressLocality": "{{ address_contact:city }}",
                 "addressCountry": "{{ address_contact:country_code }}"
+            },
+            "location": {
+                "@type": "Place",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "{{ address_contact:visit_street_address }}",
+                    "postalCode": "{{ address_contact:visit_postal_code }}",
+                    "addressLocality": "{{ address_contact:visit_city }}",
+                    "addressCountry": "{{ address_contact:visit_country_code }}"
+                }
             }{{ if address_contact:email }},
             "contactPoint": {
                 "@type": "ContactPoint",
