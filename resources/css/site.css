@@ -46,7 +46,10 @@
             @apply opacity-50 underline hover:opacity-75;
         }
         ul, ol {
-            @apply list-outside;
+            @apply list-inside;
+            & > li > p {
+                @apply inline;
+            }
         }
         ul {
             @apply list-disc;
