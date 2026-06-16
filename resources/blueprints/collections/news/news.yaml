@@ -13,6 +13,11 @@ tabs:
               validate:
                 - required
           -
+            handle: overtitle
+            field:
+              type: text
+              display: Sur-titre
+          -
             handle: description
             field:
               buttons:
@@ -31,11 +36,6 @@ tabs:
               display: Description
               validate:
                 - required
-          -
-            handle: overtitle
-            field:
-              type: text
-              display: Sur-titre
   sidebar:
     display: Sidebar
     sections:
