@@ -3,8 +3,8 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @source "../views";
-@source inline("bg-{actions-transmit-bg,actions-explore-bg,actions-experiment-bg}");
-@source inline("text-{actions-transmit,actions-explore,actions-experiment}");
+@source inline("{,hover:}{bg,border}-{actions-transmit-bg,actions-explore-bg,actions-experiment-bg}{,!}");
+@source inline("{,hover:}text-{actions-transmit,actions-explore,actions-experiment}{,-bg}{,!}");
 
 @theme {
     --font-sans: 'Rauschen-B', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
