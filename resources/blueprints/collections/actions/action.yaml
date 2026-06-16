@@ -17,8 +17,6 @@ tabs:
             field:
               type: text
               display: Sur-titre
-              validate:
-                - required
           -
             handle: description
             field:
