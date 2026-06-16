@@ -55,6 +55,8 @@ tabs:
               validate:
                 - required
                 - 'mimes:jpg,jpeg,png,svg,webp'
+      -
+        fields:
           -
             handle: actions_types
             field:
