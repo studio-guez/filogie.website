@@ -96,6 +96,11 @@ tabs:
               default: now
               validate:
                 - required
+          -
+            handle: end_date
+            field:
+              type: date
+              display: 'Date de fin'
       -
         display: 'Lien externe'
         fields:
