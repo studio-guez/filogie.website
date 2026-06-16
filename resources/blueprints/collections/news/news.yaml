@@ -47,7 +47,7 @@ tabs:
               inline_label: Non
               inline_label_when_true: Oui
               type: toggle
-              display: Media
+              display: 'Avec vidéo youtube'
               validate:
                 - required
           -
@@ -63,6 +63,8 @@ tabs:
                 - sometimes
                 - required
                 - 'mimes:jpg,jpeg,png,svg,webp'
+              if:
+                media: 'equals false'
           -
             handle: youtube_link
             field:
