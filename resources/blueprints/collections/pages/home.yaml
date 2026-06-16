@@ -86,6 +86,23 @@ tabs:
               restrict: true
               max_files: 1
               min_files: 1
+      -
+        display: 'Bouton voir plus'
+        fields:
+          -
+            handle: button_text
+            field:
+              type: text
+              display: Texte
+              validate:
+                - required
+          -
+            handle: button_link
+            field:
+              type: link
+              display: Lien
+              validate:
+                - required
   sidebar:
     display: Sidebar
     sections:
