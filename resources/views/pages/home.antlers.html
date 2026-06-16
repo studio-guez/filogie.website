@@ -35,7 +35,7 @@
     </div>
     <hr class="my-10">
 </section>
-<section class="px-base pt-30">
+<section class="px-base pt-30 pb-10">
     <h2 class="col-span-full mb-10">{{ partial:asset :image="news_image_title:id" :alt_glide="news_image_title:_alt" class="w-full h-full object-cover" preset="full" }}</h2>
     <div class="grid grid-cols-8 gap-x-5 gap-y-10">
         {{ collection:news limit="2" sort="date:desc" }}
@@ -60,5 +60,4 @@
             <a href="{{ button_link }}">{{ button_text }} <br class="max-lg:hidden">→</a>
         </div>
     </div>
-    <hr class="my-10">
 </section>
