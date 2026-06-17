@@ -1,4 +1,4 @@
-<div class="relative pt-39 -mt-39">
+<div class="relative pt-24.25 -mt-24.25 lg:pt-39.25 lg:-mt-39.25">
     <section class="px-base pt-30 grid grid-cols-8 gap-x-5">
         <div class="font-bold text-body-lg col-start-1 md:col-start-2 lg:col-start-3 xl:col-start-4 col-end-9 bard">
             {{ intro }}
@@ -21,24 +21,24 @@
     <div class="absolute inset-0 -z-1">
         <picture>
             <source
-                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc1.png' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc1.png' preset='full_2x' }} 2x"
+                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc1.jpg' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc1.jpg' preset='full_2x' }} 2x"
                 sizes="(max-width: 600px) 100vw, 50vw"
                 type="image/webp"
             >
             <source
-                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc1.png' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc1.png' preset='full_fallback_2x' }} 2x"
+                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc1.jpg' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc1.jpg' preset='full_fallback_2x' }} 2x"
                 sizes="(max-width: 600px) 100vw, 50vw"
                 type="image/png"
             >
             <img
-                src="{{ glide src='/images/filogie_site_fond-accueil-bloc1.png' preset='full_fallback_2x' }}"
+                src="{{ glide src='/images/filogie_site_fond-accueil-bloc1.jpg' preset='full_fallback_2x' }}"
                 alt=""
                 class="w-full h-full"
             >
         </picture>
     </div>
 </div>
-<section class="px-base pt-40 relative">
+<section class="px-base pt-10 relative">
     <h2 class="col-span-full mb-10">{{ partial:asset :image="actions_image_title:id" :alt_glide="actions_image_title:_alt" class="w-full h-full object-cover" preset="full" }}</h2>
     <div class="grid grid-cols-8 gap-x-5 gap-y-10 mt-[-15vw]">
     {{ collection:actions limit="4" sort="date:desc" }}
@@ -54,28 +54,28 @@
         </article>
     {{ /collection:actions }}
     </div>
-    <hr class="my-10">
+    <hr class="mt-10">
     <div class="absolute inset-0 -z-1">
         <picture>
             <source
-                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc2.png' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc2.png' preset='full_2x' }} 2x"
+                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc2.jpg' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc2.jpg' preset='full_2x' }} 2x"
                 sizes="(max-width: 600px) 100vw, 50vw"
                 type="image/webp"
             >
             <source
-                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc2.png' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc2.png' preset='full_fallback_2x' }} 2x"
+                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc2.jpg' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc2.jpg' preset='full_fallback_2x' }} 2x"
                 sizes="(max-width: 600px) 100vw, 50vw"
                 type="image/png"
             >
             <img
-                src="{{ glide src='/images/filogie_site_fond-accueil-bloc2.png' preset='full_fallback_2x' }}"
+                src="{{ glide src='/images/filogie_site_fond-accueil-bloc2.jpg' preset='full_fallback_2x' }}"
                 alt=""
                 class="w-full h-full"
             >
         </picture>
     </div>
 </section>
-<section class="px-base pt-30 relative">
+<section class="px-base pt-10 relative">
     <h2 class="col-span-full mb-10">{{ partial:asset :image="news_image_title:id" :alt_glide="news_image_title:_alt" class="w-full h-full object-cover" preset="full" }}</h2>
     <div class="grid grid-cols-8 gap-x-5 gap-y-10">
         {{ collection:news limit="2" sort="date:desc" }}
@@ -103,17 +103,17 @@
     <div class="absolute inset-0 -z-1">
         <picture>
             <source
-                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc3.png' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc3.png' preset='full_2x' }} 2x"
+                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc3.jpg' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc3.jpg' preset='full_2x' }} 2x"
                 sizes="(max-width: 600px) 100vw, 50vw"
                 type="image/webp"
             >
             <source
-                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc3.png' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc3.png' preset='full_fallback_2x' }} 2x"
+                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc3.jpg' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc3.jpg' preset='full_fallback_2x' }} 2x"
                 sizes="(max-width: 600px) 100vw, 50vw"
                 type="image/png"
             >
             <img
-                src="{{ glide src='/images/filogie_site_fond-accueil-bloc3.png' preset='full_fallback_2x' }}"
+                src="{{ glide src='/images/filogie_site_fond-accueil-bloc3.jpg' preset='full_fallback_2x' }}"
                 alt=""
                 class="w-full h-full"
             >

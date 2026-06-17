@@ -1,4 +1,4 @@
-<section class="px-base pt-30 pb-10">
+<section class="px-base pb-10 relative pt-54.25 -mt-24.25 lg:pt-69.25 lg:-mt-39.25">
     <h1 class="mb-30">{{ partial:asset :image="image_title_h1:id" :alt_glide="image_title_h1:_alt" class="w-full h-full object-cover" preset="full" }}</h1>
     {{ collection:news sort="date:desc" }}
             <article class="col-span-6 lg:col-span-3">
@@ -35,4 +35,23 @@
             <hr class="my-10">
             {{ /if }}
     {{ /collection:news }}
+    <div class="absolute inset-0 -z-1">
+        <picture>
+            <source
+                srcset="{{ glide src='/images/filogie_site_fond-media.jpg' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond-media.jpg' preset='full_2x' }} 2x"
+                sizes="(max-width: 600px) 100vw, 50vw"
+                type="image/webp"
+            >
+            <source
+                srcset="{{ glide src='/images/filogie_site_fond-media.jpg' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond-media.jpg' preset='full_fallback_2x' }} 2x"
+                sizes="(max-width: 600px) 100vw, 50vw"
+                type="image/png"
+            >
+            <img
+                src="{{ glide src='/images/filogie_site_fond-media.jpg' preset='full_fallback_2x' }}"
+                alt=""
+                class="w-full h-full"
+            >
+        </picture>
+    </div>
 </section>
