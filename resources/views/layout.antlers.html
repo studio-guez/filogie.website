@@ -134,7 +134,9 @@
     </head>
     <body class="font-sans text-body-md text-black{{ if blueprint.handle == 'page' }} bg-yellow{{ else }} bg-white{{ /if }}">
         {{ partial:header }}
-        {{ template_content }}
+        <main>
+            {{ template_content }}
+        </main>
         {{ partial:footer }}
     </body>
 </html>

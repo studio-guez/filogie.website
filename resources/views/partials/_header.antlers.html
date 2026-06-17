@@ -3,7 +3,7 @@
     {{ partial:asset :image="global_site:logo_full:id" :alt_glide="global_site:logo_full:_alt" class="w-full" preset="full" }}
 </div>
 {{ /if }}
-<header class="px-base sticky top-0 pt-5 z-1 transition-colors duration-300" x-data="{ isOpen: false, isSticky: false, stickyAt: 0 }" x-init="stickyAt = $el.offsetTop; isSticky = window.scrollY > stickyAt + 50" @scroll.window="isSticky = window.scrollY > stickyAt + 50" @resize.window="stickyAt = $el.offsetTop" :class="{ 'bg-white/50': isSticky }">
+<header class="px-base sticky top-0 pt-5 z-1 transition-colors duration-300" x-data="{ isOpen: false, isSticky: false }" x-init="isSticky = document.querySelector('main').getBoundingClientRect().top < -50" @scroll.window="isSticky = document.querySelector('main').getBoundingClientRect().top < -50" @resize.window="isSticky = document.querySelector('main').getBoundingClientRect().top < -50" :class="{ 'bg-white/75': isSticky }">
     <div class="flex items-center gap-5 justify-between">
         {{ if is_homepage }}
         <h1 class="max-w-lg text-balance">{{ global_site:legal_name }}</h1>
