@@ -3,7 +3,7 @@
     {{ partial:asset :image="global_site:logo_full:id" :alt_glide="global_site:logo_full:_alt" class="w-full" preset="full" }}
 </div>
 {{ /if }}
-<header class="px-base sticky top-0 pt-5 z-1{{ if !is_homepage }} bg-white/80{{ /if }}" x-data="{ isOpen: false }">
+<header class="px-base sticky top-0 pt-5 z-1 transition-colors duration-300" x-data="{ isOpen: false, isSticky: false, stickyAt: 0 }" x-init="stickyAt = $el.offsetTop; isSticky = window.scrollY > stickyAt + 50" @scroll.window="isSticky = window.scrollY > stickyAt + 50" @resize.window="stickyAt = $el.offsetTop" :class="{ 'bg-white/50': isSticky }">
     <div class="flex items-center gap-5 justify-between">
         {{ if is_homepage }}
         <h1 class="max-w-lg text-balance">{{ global_site:legal_name }}</h1>
@@ -29,7 +29,7 @@
     </div>
         <hr class="mt-5">
     <nav class="max-lg:hidden max-lg:bg-yellow pt-5 max-lg:pb-5 max-lg:border-b max-lg:absolute max-lg:inset-x-0 max-lg:top-full max-lg:w-full px-5 sm:px-7.5 lg:px-0" :class="{ 'max-lg:block!': isOpen }">
-        <ul class="flex items-center justify-between gap-5 text-body-lg font-bold max-lg:flex-col max-lg:items-end">
+        <ul class="flex items-center justify-between gap-5 text-body-lg font-bold max-lg:flex-col max-lg:items-end lg:pb-2.5">
             {{ nav:menu }}
             <li><a href="{{ url }}">{{ title }}</a></li>
             {{ /nav:menu }}
