@@ -1,40 +1,38 @@
-<div class="px-base mb-0 md:mb-[-4vw] pt-5 z-1">
 {{ if is_homepage }}
+<div class="px-base mb-0 md:mb-[-4vw] pt-5 z-2 relative">
     {{ partial:asset :image="global_site:logo_full:id" :alt_glide="global_site:logo_full:_alt" class="w-full" preset="full" }}
-{{ /if }}
 </div>
-<header class="px-base sticky top-0 pt-5 z-2" x-data="{ isOpen: false }">
-    <div class="relative">
-        <div class="flex items-center gap-5 justify-between">
-            {{ if is_homepage }}
-            <h1 class="max-w-lg text-balance">{{ global_site:legal_name }}</h1>
-            {{ else }}
-            <a href="/" class="max-w-lg text-balance">{{ global_site:legal_name }}</a>
-            {{ /if }}
-            {{ partial:asset :image="global_site:logo_small:id" :alt_glide="global_site:logo_small:_alt" class="h-15 max-lg:hidden" preset="third" }}
-            <button class="lg:hidden cursor-pointer" aria-label="Open menu" @click="isOpen = true" x-show="!isOpen">
-                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
-                    <rect x="7" y="9" width="13" height="2" class="fill-black"/>
-                    <rect x="7" y="13" width="13" height="2" class="fill-black"/>
-                    <rect x="7" y="17" width="13" height="2" class="fill-black"/>
-                    <circle cx="13.5" cy="13.5" r="13" class="stroke-black"/>
-                </svg>
-            </button>
-            <button class="lg:hidden cursor-pointer" id="menu-toggle" aria-label="Close menu" @click="isOpen = false" x-show="isOpen" x-cloak>
-                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
-                    <rect x="9.61133" y="9" width="13" height="2" transform="rotate(45 9.61133 9)" class="fill-black"/>
-                    <rect x="8.19727" y="18.1924" width="13" height="2" transform="rotate(-45 8.19727 18.1924)" class="fill-black"/>
-                    <circle cx="13.5" cy="13.5" r="13" class="stroke-black"/>
-                </svg>
-            </button>
-        </div>
-            <hr class="mt-5">
-        <nav class="max-lg:hidden max-lg:bg-yellow pt-5 max-lg:pb-5 max-lg:border-b max-lg:absolute max-lg:top-full max-lg:w-full" :class="{ 'max-lg:block!': isOpen }">
-            <ul class="flex items-center justify-between gap-5 text-body-lg font-bold max-lg:flex-col max-lg:items-end max-lg:px-5">
-                {{ nav:menu }}
-                <li><a href="{{ url }}">{{ title }}</a></li>
-                {{ /nav:menu }}
-            </ul>
-        </nav>
+{{ /if }}
+<header class="px-base sticky top-0 pt-5 z-1{{ if !is_homepage }} bg-white/80{{ /if }}" x-data="{ isOpen: false }">
+    <div class="flex items-center gap-5 justify-between">
+        {{ if is_homepage }}
+        <h1 class="max-w-lg text-balance">{{ global_site:legal_name }}</h1>
+        {{ else }}
+        <a href="/" class="max-w-lg text-balance">{{ global_site:legal_name }}</a>
+        {{ /if }}
+        {{ partial:asset :image="global_site:logo_small:id" :alt_glide="global_site:logo_small:_alt" class="h-15 max-lg:hidden" preset="third" }}
+        <button class="lg:hidden cursor-pointer" aria-label="Open menu" @click="isOpen = true" x-show="!isOpen">
+            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
+                <rect x="7" y="9" width="13" height="2" class="fill-black"/>
+                <rect x="7" y="13" width="13" height="2" class="fill-black"/>
+                <rect x="7" y="17" width="13" height="2" class="fill-black"/>
+                <circle cx="13.5" cy="13.5" r="13" class="stroke-black"/>
+            </svg>
+        </button>
+        <button class="lg:hidden cursor-pointer" id="menu-toggle" aria-label="Close menu" @click="isOpen = false" x-show="isOpen" x-cloak>
+            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
+                <rect x="9.61133" y="9" width="13" height="2" transform="rotate(45 9.61133 9)" class="fill-black"/>
+                <rect x="8.19727" y="18.1924" width="13" height="2" transform="rotate(-45 8.19727 18.1924)" class="fill-black"/>
+                <circle cx="13.5" cy="13.5" r="13" class="stroke-black"/>
+            </svg>
+        </button>
     </div>
+        <hr class="mt-5">
+    <nav class="max-lg:hidden max-lg:bg-yellow pt-5 max-lg:pb-5 max-lg:border-b max-lg:absolute max-lg:inset-x-0 max-lg:top-full max-lg:w-full px-5 sm:px-7.5 lg:px-0" :class="{ 'max-lg:block!': isOpen }">
+        <ul class="flex items-center justify-between gap-5 text-body-lg font-bold max-lg:flex-col max-lg:items-end">
+            {{ nav:menu }}
+            <li><a href="{{ url }}">{{ title }}</a></li>
+            {{ /nav:menu }}
+        </ul>
+    </nav>
 </header>
