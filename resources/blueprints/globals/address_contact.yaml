@@ -175,12 +175,4 @@ tabs:
   newsletter:
     display: Newsletter
     sections:
-      -
-        fields:
-          -
-            handle: newsletter_text
-            field:
-              type: text
-              display: 'Texte newsletter'
-              validate:
-                - required
+      - {}

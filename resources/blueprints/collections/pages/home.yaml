@@ -113,4 +113,30 @@ tabs:
         display: SEO
         fields:
           - import: seo_base
+  newsletter:
+    display: 'Newsletter / Contact'
+    sections:
+      -
+        display: Contact
+        fields:
+          -
+            handle: contact_text
+            field:
+              type: textarea
+              display: Texte
+              validate:
+                - required
+      -
+        display: Newsletter
+        fields:
+          -
+            handle: newsletter_text
+            field:
+              type: textarea
+              display: Texte
+          -
+            handle: newsletter_button
+            field:
+              type: text
+              display: Bouton
 title: Home
