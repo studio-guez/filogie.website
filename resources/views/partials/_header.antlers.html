@@ -1,9 +1,9 @@
-<div class="px-base mb-[-4vw] pt-5">
+<div class="px-base mb-[-4vw] pt-5 z-1">
 {{ if is_homepage }}
     {{ partial:asset :image="global_site:logo_full:id" :alt_glide="global_site:logo_full:_alt" class="w-full" preset="full" }}
 {{ /if }}
 </div>
-<header class="px-base sticky top-0 pt-5" x-data="{ isOpen: false }">
+<header class="px-base sticky top-0 pt-5 z-2" x-data="{ isOpen: false }">
     <div class="relative">
         <div class="flex items-center gap-5 justify-between">
             {{ if is_homepage }}

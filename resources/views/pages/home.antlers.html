@@ -1,23 +1,44 @@
-<section class="px-base pt-30 grid grid-cols-8 gap-x-5">
-    <div class="font-bold text-body-lg col-start-1 md:col-start-2 lg:col-start-3 xl:col-start-4 col-end-9 bard">
-        {{ intro }}
-    </div>
-</section>
-<section class="px-base pt-30 grid grid-cols-8 gap-x-5">
-    <h2 class="col-span-full mb-10">{{ partial:asset :image="missions_image_title:id" :alt_glide="missions_image_title:_alt" class="w-full h-full object-cover" preset="full" }}</h2>
-    <div class="text-body-lg col-start-1 md:col-start-2 lg:col-start-3 xl:col-start-4 col-end-9">
-    {{ taxonomy:actions_types }}
-    <div class="not-last:mb-10">
-        <h3 class="font-bold text-actions-{{ color_slug }} bg-actions-{{ color_slug }}-bg leading-none rounded-full py-2 px-5 trim-text mb-2.5 w-fit">{{ title }}</h3>
-        <div class="bard">
-            {{ description }}
+<div class="relative pt-39 -mt-39">
+    <section class="px-base pt-30 grid grid-cols-8 gap-x-5">
+        <div class="font-bold text-body-lg col-start-1 md:col-start-2 lg:col-start-3 xl:col-start-4 col-end-9 bard">
+            {{ intro }}
         </div>
+    </section>
+    <section class="px-base pt-30 grid grid-cols-8 gap-x-5">
+        <h2 class="col-span-full mb-10">{{ partial:asset :image="missions_image_title:id" :alt_glide="missions_image_title:_alt" class="w-full h-full object-cover" preset="full" }}</h2>
+        <div class="text-body-lg col-start-1 md:col-start-2 lg:col-start-3 xl:col-start-4 col-end-9">
+        {{ taxonomy:actions_types }}
+        <div class="not-last:mb-10">
+            <h3 class="font-bold text-actions-{{ color_slug }} bg-actions-{{ color_slug }}-bg leading-none rounded-full py-2 px-5 trim-text mb-2.5 w-fit">{{ title }}</h3>
+            <div class="bard">
+                {{ description }}
+            </div>
+        </div>
+        {{ /taxonomy:actions_types }}
+        </div>
+        <hr class="mt-10 col-span-full">
+    </section>
+    <div class="absolute inset-0 -z-1">
+        <picture>
+            <source
+                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc1.png' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc1.png' preset='full_2x' }} 2x"
+                sizes="(max-width: 600px) 100vw, 50vw"
+                type="image/webp"
+            >
+            <source
+                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc1.png' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc1.png' preset='full_fallback_2x' }} 2x"
+                sizes="(max-width: 600px) 100vw, 50vw"
+                type="image/png"
+            >
+            <img
+                src="{{ glide src='/images/filogie_site_fond-accueil-bloc1.png' preset='full_fallback_2x' }}"
+                alt=""
+                class="w-full h-full"
+            >
+        </picture>
     </div>
-    {{ /taxonomy:actions_types }}
-    </div>
-    <hr class="my-10 col-span-full">
-</section>
-<section class="px-base pt-30">
+</div>
+<section class="px-base pt-40 relative">
     <h2 class="col-span-full mb-10">{{ partial:asset :image="actions_image_title:id" :alt_glide="actions_image_title:_alt" class="w-full h-full object-cover" preset="full" }}</h2>
     <div class="grid grid-cols-8 gap-x-5 gap-y-10 mt-[-15vw]">
     {{ collection:actions limit="4" sort="date:desc" }}
@@ -34,8 +55,27 @@
     {{ /collection:actions }}
     </div>
     <hr class="my-10">
+    <div class="absolute inset-0 -z-1">
+        <picture>
+            <source
+                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc2.png' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc2.png' preset='full_2x' }} 2x"
+                sizes="(max-width: 600px) 100vw, 50vw"
+                type="image/webp"
+            >
+            <source
+                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc2.png' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc2.png' preset='full_fallback_2x' }} 2x"
+                sizes="(max-width: 600px) 100vw, 50vw"
+                type="image/png"
+            >
+            <img
+                src="{{ glide src='/images/filogie_site_fond-accueil-bloc2.png' preset='full_fallback_2x' }}"
+                alt=""
+                class="w-full h-full"
+            >
+        </picture>
+    </div>
 </section>
-<section class="px-base pt-30 pb-10">
+<section class="px-base pt-30 relative">
     <h2 class="col-span-full mb-10">{{ partial:asset :image="news_image_title:id" :alt_glide="news_image_title:_alt" class="w-full h-full object-cover" preset="full" }}</h2>
     <div class="grid grid-cols-8 gap-x-5 gap-y-10">
         {{ collection:news limit="2" sort="date:desc" }}
@@ -60,4 +100,31 @@
             <a href="{{ button_link }}">{{ button_text }} <br class="max-lg:hidden">→</a>
         </div>
     </div>
+    <div class="absolute inset-0 -z-1">
+        <picture>
+            <source
+                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc3.png' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc3.png' preset='full_2x' }} 2x"
+                sizes="(max-width: 600px) 100vw, 50vw"
+                type="image/webp"
+            >
+            <source
+                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc3.png' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc3.png' preset='full_fallback_2x' }} 2x"
+                sizes="(max-width: 600px) 100vw, 50vw"
+                type="image/png"
+            >
+            <img
+                src="{{ glide src='/images/filogie_site_fond-accueil-bloc3.png' preset='full_fallback_2x' }}"
+                alt=""
+                class="w-full h-full"
+            >
+        </picture>
+    </div>
+    <hr class="mt-10">
+</section>
+<section class="px-base pt-10 pb-20 flex flex-col items-center">
+    <div class="text-center mb-5">{{ contact_text | nl2br }}</div>
+    <a href="mailto:{{ address_contact:email }}" class="bg-[#FFDB34] leading-none rounded-full py-1.5 px-3 trim-text w-fit mb-15 hover:bg-[#E6C200] transition-colors duration-300">{{ address_contact:email }}</a>
+    <div class="text-center mb-5 font-bold">{{ newsletter_text | nl2br }}</div>
+    <input class="bg-[#D9D9D9] rounded-full py-2 px-5 w-full max-w-lg placeholder:opacity-70" type="email" placeholder="Email*">
+    <button class="bg-[#B89871] leading-none rounded-full py-2 px-5 trim-text w-fit mt-5 cursor-pointer hover:bg-[#A07C5A] transition-colors duration-300">{{ newsletter_button }}</button>
 </section>
