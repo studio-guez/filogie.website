@@ -6,7 +6,7 @@
             type="button"
             @click="activeFilter = activeFilter === '{{ slug }}' ? null : '{{ slug }}'"
             :class="activeFilter === '{{ slug }}' && 'text-actions-{{ color_slug }}! bg-actions-{{ color_slug }}-bg!'"
-            class="font-bold leading-none rounded-full py-2 px-5 trim-text mb-2.5 w-fit transition-colors cursor-pointer text-actions-{{ color_slug }}-bg border border-actions-{{ color_slug }}-bg transition-colors hover:text-actions-{{ color_slug }}! hover:bg-actions-{{ color_slug }}-bg!"
+            class="font-bold leading-none rounded-full py-2 px-5 trim-text mb-2.5 w-fit transition-colors duration-300 cursor-pointer text-actions-{{ color_slug }}-bg border border-actions-{{ color_slug }}-bg hover:text-actions-{{ color_slug }}! hover:bg-actions-{{ color_slug }}-bg!"
         >{{ title }}<span x-show="activeFilter === '{{ slug }}'" class="ml-1.5 font-bold" x-cloak>&times;</span></button>
         {{ /taxonomy:actions_types }}
     </div>
