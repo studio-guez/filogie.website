@@ -134,9 +134,13 @@ tabs:
             field:
               type: textarea
               display: Texte
+              validate:
+                - required
           -
             handle: newsletter_button
             field:
               type: text
               display: Bouton
+              validate:
+                - required
 title: Home
