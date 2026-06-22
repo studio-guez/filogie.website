@@ -11,8 +11,7 @@
     font-family: "Rauschen-B";
     font-weight: 400;
     font-style: italic;
-    src: url('../fonts/Rauschen-B-Book-Italic.woff2') format('woff2'),
-        url('../fonts/Rauschen-B-Book-Italic.woff') format('woff'),
+    src: url('../fonts/Rauschen-B-Book-Italic.woff') format('woff'),
         url('../fonts/Rauschen-B-Book-Italic.otf') format('opentype'),
         url('../fonts/Rauschen-B-Variable.ttf') format('truetype');
     font-display: block;
@@ -30,8 +29,7 @@
     font-family: "Rauschen-B";
     font-weight: 600;
     font-style: italic;
-    src: url('../fonts/Rauschen-B-Semibold-Italic.woff2') format('woff2'),
-        url('../fonts/Rauschen-B-Semibold-Italic.woff') format('woff'),
+    src: url('../fonts/Rauschen-B-Semibold-Italic.woff') format('woff'),
         url('../fonts/Rauschen-B-Semibold-Italic.otf') format('opentype'),
         url('../fonts/Rauschen-B-Variable.ttf') format('truetype');
     font-display: block;
