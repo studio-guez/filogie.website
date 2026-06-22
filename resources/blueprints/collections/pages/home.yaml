@@ -143,4 +143,25 @@ tabs:
               display: Bouton
               validate:
                 - required
+          -
+            handle: newsletter_email_placeholder
+            field:
+              type: text
+              display: 'Placeholder email'
+              validate:
+                - required
+          -
+            handle: newsletter_success_message
+            field:
+              type: text
+              display: 'Message de succès'
+              validate:
+                - required
+          -
+            handle: newsletter_rgpd_text
+            field:
+              type: textarea
+              display: 'Texte RGPD'
+              validate:
+                - required
 title: Home

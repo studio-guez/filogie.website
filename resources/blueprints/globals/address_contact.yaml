@@ -172,7 +172,3 @@ tabs:
                             validate:
                               - required
                               - url
-  newsletter:
-    display: Newsletter
-    sections:
-      - {}
