@@ -124,7 +124,32 @@
 <section class="px-base pt-10 pb-20 flex flex-col items-center">
     <div class="text-center mb-5">{{ contact_text | nl2br }}</div>
     <a href="mailto:{{ address_contact:email }}" class="bg-[#FFDB34] leading-none rounded-full py-1.5 px-3 trim-text w-fit mb-15 hover:bg-[#E6C200] transition-colors duration-300">{{ address_contact:email }}</a>
-    <div class="text-center mb-5 font-bold">{{ newsletter_text | nl2br }}</div>
-    <input class="bg-[#D9D9D9] rounded-full py-2 px-5 w-full max-w-lg placeholder:opacity-70" type="email" placeholder="Email*">
-    <button class="bg-[#B89871] leading-none rounded-full py-2 px-5 trim-text w-fit mt-5 cursor-pointer hover:bg-[#A07C5A] transition-colors duration-300">{{ newsletter_button }}</button>
+    <form method="post" action="https://newsletter.infomaniak.com/v3/api/1/newsletters/webforms/24821/submit" class="inf-form w-full max-w-lg flex flex-col items-center gap-4">
+        <style>
+            .inf-main_4299f209da83da82b711f1d631cc607b { background: none; padding: 0; margin: 0; }
+            .inf-main_4299f209da83da82b711f1d631cc607b .inf-content { margin-top: 0; }
+            .inf-input.inf-error input { outline-color: #dc2626; outline-offset: 0; }
+            .inf-input.inf-error span.inf-message { display: block !important; color: #dc2626; font-size: 0.8rem; margin-top: 0.25rem; padding-left: 1.25rem; }
+        </style>
+        <input type="email" name="email" style="display:none" />
+        <input type="hidden" name="key" value="eyJpdiI6IlVvcnFQOFlpamdEaGllVVRsWWRQKzB1MHFZbUliVkVlZWNWdHFPcm5SXC80PSIsIm1hYyI6IjE3OTVjOTEyNWQzZTI4MDI5NDUxNmY0YzJmOWYwYTcwY2ZiZTUxODVlMmRlMzZlZGE0OWQ4NjFkYmVjYTMzMGUiLCJ2YWx1ZSI6ImFpaGFVY1NvRXFlbDkzazNjazVFekZvRmtmZGZ5SGRoZjZhZFB6eGRVR289In0=">
+        <input type="hidden" name="webform_id" value="24821">
+        <div class="inf-main_4299f209da83da82b711f1d631cc607b w-full flex flex-col items-center gap-4">
+            <div class="inf-success hidden w-full text-center font-bold py-4">
+                {{ newsletter_success_message }}
+            </div>
+            <div class="inf-content w-full flex flex-col items-center gap-4">
+                <div class="text-center font-bold">{{ newsletter_text | nl2br }}</div>
+                <div class="inf-input inf-input-text w-full">
+                    <input class="bg-[#D9D9D9] rounded-full py-2 px-5 w-full placeholder:opacity-70" type="email" name="inf[1]" data-inf-meta="1" data-inf-error="" required="required" placeholder="{{ newsletter_email_placeholder }}">
+                </div>
+                <p class="text-xs text-center opacity-60">{{ newsletter_rgpd_text }}</p>
+                <script src="https://newsletter.infomaniak.com/v3/static/mcaptcha/altcha.min.js?v=1782126000" type="module"></script>
+                <altcha-widget hidelogo hidefooter floating challengeurl="https://newsletter.infomaniak.com/v3/altcha-challenge"></altcha-widget>
+                <script src="https://newsletter.infomaniak.com/v3/static/mcaptcha/altcha-index.js?v=1782126000" defer></script>
+                <script src="https://newsletter.infomaniak.com/v3/static/webform_index.js?v=1782126000"></script>
+                <button type="submit" class="bg-[#B89871] leading-none rounded-full py-2 px-5 trim-text w-fit cursor-pointer hover:bg-[#A07C5A] transition-colors duration-300">{{ newsletter_button }}</button>
+            </div>
+        </div>
+    </form>
 </section>
