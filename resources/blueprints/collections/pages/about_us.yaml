@@ -1,7 +1,206 @@
-title: 'À propos'
 tabs:
   main:
     display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: image_title_h1
+            field:
+              container: titles
+              type: assets
+              display: 'Titre image'
+              validate:
+                - required
+                - 'mimes:svg'
+              restrict: true
+              max_files: 1
+              min_files: 1
+          -
+            handle: intro
+            field:
+              buttons:
+                - anchor
+                - underline
+                - strikethrough
+                - superscript
+                - subscript
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+                - removeformat
+              remove_empty_nodes: trim
+              type: bard
+              display: Introduction
+              validate:
+                - required
+  nos_principes_dactions:
+    display: "Nos principes d'actions"
+    sections:
+      -
+        fields:
+          -
+            handle: principles_image_title
+            field:
+              container: titles
+              type: assets
+              display: 'Titre image'
+              validate:
+                - required
+                - 'mimes:svg'
+              restrict: true
+              max_files: 1
+              min_files: 1
+          -
+            handle: principles
+            field:
+              type: replicator
+              display: Principes
+              validate:
+                - required
+              sets:
+                principles:
+                  display: Principes
+                  sets:
+                    principle:
+                      display: Principe
+                      fields:
+                        -
+                          handle: principle
+                          field:
+                            buttons:
+                              - bold
+                              - italic
+                            remove_empty_nodes: trim
+                            type: bard
+                            display: Principe
+                            validate:
+                              - required
+  history:
+    display: Historique
+    sections:
+      -
+        fields:
+          -
+            handle: history_image_title
+            field:
+              container: titles
+              type: assets
+              display: 'Titre image'
+              validate:
+                - required
+                - 'mimes:svg'
+              restrict: true
+              max_files: 1
+              min_files: 1
+          -
+            handle: history_description
+            field:
+              buttons:
+                - anchor
+                - underline
+                - strikethrough
+                - superscript
+                - subscript
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+                - removeformat
+              remove_empty_nodes: trim
+              type: bard
+              display: Description
+              validate:
+                - required
+  team:
+    display: Équipe
+    sections:
+      -
+        fields:
+          -
+            handle: team_title
+            field:
+              type: text
+              display: Titre
+              validate:
+                - required
+      -
+        display: Membres
+        fields:
+          -
+            handle: team_members
+            field:
+              type: replicator
+              display: Membres
+              validate:
+                - required
+              sets:
+                membres:
+                  display: Membres
+                  sets:
+                    membre:
+                      display: Membre
+                      fields:
+                        -
+                          handle: role
+                          field:
+                            type: text
+                            display: Role
+                            validate:
+                              - required
+                        -
+                          handle: name
+                          field:
+                            type: text
+                            display: Nom
+                            validate:
+                              - required
+  council:
+    display: 'Conseil de fondation'
+    sections:
+      -
+        fields:
+          -
+            handle: council_title
+            field:
+              type: text
+              display: Titre
+              validate:
+                - required
+      -
+        display: Membres
+        fields:
+          -
+            handle: council_members
+            field:
+              type: replicator
+              display: Membres
+              validate:
+                - required
+              sets:
+                membres:
+                  display: Membres
+                  sets:
+                    membre:
+                      display: Membre
+                      fields:
+                        -
+                          handle: role
+                          field:
+                            type: text
+                            display: Role
+                            validate:
+                              - required
+                        -
+                          handle: name
+                          field:
+                            type: text
+                            display: Nom
+                            validate:
+                              - required
+  sidebar:
+    display: Sidebar
     sections:
       -
         fields:
@@ -12,11 +211,6 @@ tabs:
               required: true
               validate:
                 - required
-  sidebar:
-    display: Sidebar
-    sections:
-      -
-        fields:
           -
             handle: slug
             field:
@@ -27,3 +221,4 @@ tabs:
         display: SEO
         fields:
           - import: seo_base
+title: 'À propos'

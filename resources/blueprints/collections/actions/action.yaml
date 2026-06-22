@@ -17,10 +17,8 @@ tabs:
             field:
               type: text
               display: Sur-titre
-              validate:
-                - required
           -
-            handle: descritpion
+            handle: description
             field:
               buttons:
                 - anchor
@@ -32,6 +30,7 @@ tabs:
                 - italic
                 - unorderedlist
                 - orderedlist
+                - removeformat
               remove_empty_nodes: trim
               type: bard
               display: Description
@@ -40,6 +39,20 @@ tabs:
   sidebar:
     display: Sidebar
     sections:
+      -
+        fields:
+          -
+            handle: featured_image
+            field:
+              container: actions
+              restrict: true
+              max_files: 1
+              min_files: 1
+              type: assets
+              display: 'Image à la une'
+              validate:
+                - required
+                - 'mimes:jpg,jpeg,png,svg,webp'
       -
         fields:
           -
@@ -54,14 +67,10 @@ tabs:
               validate:
                 - required
           -
-            handle: featured_image
+            handle: date
             field:
-              container: actions
-              restrict: true
-              max_files: 1
-              min_files: 1
-              type: assets
-              display: 'Image à la une'
+              type: date
+              required: true
+              default: now
               validate:
                 - required
-                - 'mimes:jpg,jpeg,png,svg,webp'

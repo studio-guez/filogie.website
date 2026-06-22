@@ -19,17 +19,15 @@ fields:
       display: 'Meta mot-clés'
       localizable: true
       instructions: 'Séparer les mots-clés par des virgules'
-      instructions_position: 'beyond'
+      instructions_position: beyond
   -
     handle: meta_image
     field:
-      container: assets
+      container: og
       max_files: 1
-      min_files: 0
       type: assets
       display: 'Image OG'
-      localizable: false
       always_save: false
       validate:
-        - 'mimes:jpg,jpeg,png'
+        - 'mimes:jpg,jpeg,png,webp'
       restrict: true

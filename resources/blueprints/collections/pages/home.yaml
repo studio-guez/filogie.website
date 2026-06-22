@@ -5,18 +5,6 @@ tabs:
       -
         fields:
           -
-            handle: image_title_h1
-            field:
-              container: titles
-              type: assets
-              display: 'Titre image'
-              validate:
-                - required
-                - 'mimes:svg'
-              restrict: true
-              max_files: 1
-              min_files: 1
-          -
             handle: intro
             field:
               buttons:
@@ -29,6 +17,7 @@ tabs:
                 - italic
                 - unorderedlist
                 - orderedlist
+                - removeformat
               remove_empty_nodes: trim
               type: bard
               display: Introduction
@@ -85,6 +74,23 @@ tabs:
               restrict: true
               max_files: 1
               min_files: 1
+      -
+        display: 'Bouton voir plus'
+        fields:
+          -
+            handle: button_text
+            field:
+              type: text
+              display: Texte
+              validate:
+                - required
+          -
+            handle: button_link
+            field:
+              type: link
+              display: Lien
+              validate:
+                - required
   sidebar:
     display: Sidebar
     sections:
@@ -107,4 +113,55 @@ tabs:
         display: SEO
         fields:
           - import: seo_base
+  newsletter:
+    display: 'Newsletter / Contact'
+    sections:
+      -
+        display: Contact
+        fields:
+          -
+            handle: contact_text
+            field:
+              type: textarea
+              display: Texte
+              validate:
+                - required
+      -
+        display: Newsletter
+        fields:
+          -
+            handle: newsletter_text
+            field:
+              type: textarea
+              display: Texte
+              validate:
+                - required
+          -
+            handle: newsletter_button
+            field:
+              type: text
+              display: Bouton
+              validate:
+                - required
+          -
+            handle: newsletter_email_placeholder
+            field:
+              type: text
+              display: 'Placeholder email'
+              validate:
+                - required
+          -
+            handle: newsletter_success_message
+            field:
+              type: text
+              display: 'Message de succès'
+              validate:
+                - required
+          -
+            handle: newsletter_rgpd_text
+            field:
+              type: textarea
+              display: 'Texte RGPD'
+              validate:
+                - required
 title: Home

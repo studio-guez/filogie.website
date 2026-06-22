@@ -1,0 +1,155 @@
+<div class="relative pt-24.25 -mt-24.25 lg:pt-39.25 lg:-mt-41.75">
+    <section class="px-base pt-30 grid grid-cols-8 gap-x-5">
+        <div class="font-bold text-body-lg col-start-1 md:col-start-2 lg:col-start-3 xl:col-start-4 col-end-9 bard">
+            {{ intro }}
+        </div>
+    </section>
+    <section class="px-base pt-30 grid grid-cols-8 gap-x-5">
+        <h2 class="col-span-full mb-10">{{ partial:asset :image="missions_image_title:id" :alt_glide="missions_image_title:_alt" class="w-full h-full object-cover" preset="full" }}</h2>
+        <div class="text-body-lg col-start-1 md:col-start-2 lg:col-start-3 xl:col-start-4 col-end-9">
+        {{ taxonomy:actions_types }}
+        <div class="not-last:mb-10">
+            <h3 class="font-bold text-actions-{{ color_slug }} bg-actions-{{ color_slug }}-bg leading-none rounded-full py-2 px-5 trim-text mb-2.5 w-fit">{{ title }}</h3>
+            <div class="bard">
+                {{ description }}
+            </div>
+        </div>
+        {{ /taxonomy:actions_types }}
+        </div>
+        <hr class="mt-10 col-span-full">
+    </section>
+    <div class="absolute inset-0 -z-1">
+        <picture>
+            <source
+                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc1.jpg' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc1.jpg' preset='full_2x' }} 2x"
+                sizes="(max-width: 600px) 100vw, 50vw"
+                type="image/webp"
+            >
+            <source
+                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc1.jpg' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc1.jpg' preset='full_fallback_2x' }} 2x"
+                sizes="(max-width: 600px) 100vw, 50vw"
+                type="image/png"
+            >
+            <img
+                src="{{ glide src='/images/filogie_site_fond-accueil-bloc1.jpg' preset='full_fallback_2x' }}"
+                alt=""
+                class="w-full h-full"
+            >
+        </picture>
+    </div>
+</div>
+<section class="px-base pt-10 relative">
+    <h2 class="col-span-full mb-10">{{ partial:asset :image="actions_image_title:id" :alt_glide="actions_image_title:_alt" class="w-full h-full object-cover" preset="full" }}</h2>
+    <div class="grid grid-cols-8 gap-x-5 gap-y-10 mt-[-15vw]">
+    {{ collection:actions limit="4" sort="date:desc" }}
+        <article class="col-span-6 lg:col-span-3">
+            <div class="aspect-square w-full mb-5">
+                {{ partial:asset :image="featured_image:id" :alt_glide="featured_image:_alt" class="w-full h-full object-cover rounded-lg" preset="half" }}
+            </div>
+            {{ actions_types }}
+            <div class="text-actions-{{ color_slug }} bg-actions-{{ color_slug }}-bg leading-none rounded-full py-1.5 px-3 trim-text mb-5 w-fit">{{ title }}</div>
+            {{ /actions_types }}
+            <h3 class="font-bold text-body-lg mb-5">{{ title }}</h3>
+            <div class="line-clamp-4">{{ description }}</div>
+        </article>
+    {{ /collection:actions }}
+    </div>
+    <hr class="mt-10">
+    <div class="absolute inset-0 -z-1">
+        <picture>
+            <source
+                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc2.jpg' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc2.jpg' preset='full_2x' }} 2x"
+                sizes="(max-width: 600px) 100vw, 50vw"
+                type="image/webp"
+            >
+            <source
+                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc2.jpg' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc2.jpg' preset='full_fallback_2x' }} 2x"
+                sizes="(max-width: 600px) 100vw, 50vw"
+                type="image/png"
+            >
+            <img
+                src="{{ glide src='/images/filogie_site_fond-accueil-bloc2.jpg' preset='full_fallback_2x' }}"
+                alt=""
+                class="w-full h-full"
+            >
+        </picture>
+    </div>
+</section>
+<section class="px-base pt-10 relative">
+    <h2 class="col-span-full mb-10">{{ partial:asset :image="news_image_title:id" :alt_glide="news_image_title:_alt" class="w-full h-full object-cover" preset="full" }}</h2>
+    <div class="grid grid-cols-8 gap-x-5 gap-y-10">
+        {{ collection:news limit="2" sort="date:desc" }}
+        <article class="col-span-full lg:col-span-3">
+            {{ if youtube_link }}
+            <div class="aspect-video w-full mb-5">
+                <iframe class="w-full h-full rounded-lg" src="{{ youtube_link | embed_url }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            {{ else }}
+            <div class="aspect-video w-full mb-5">
+                {{ partial:asset :image="featured_image:id" :alt_glide="featured_image:_alt" class="w-full h-full object-cover rounded-lg" preset="half" }}
+            </div>
+            {{ /if }}
+            {{ if overtitle }}
+            <div class="font-bold mb-5">{{ overtitle }}</div>
+            {{ /if }}
+            <h3 class="font-bold text-body-lg mb-5">{{ title }}</h3>
+            <div class="line-clamp-4">{{ description }}</div>
+        </article>
+        {{ /collection:news }}
+        <div class="font-bold text-body-lg col-span-full lg:col-span-2 flex justify-end">
+            <a href="{{ button_link }}">{{ button_text }} <br class="max-lg:hidden">→</a>
+        </div>
+    </div>
+    <div class="absolute inset-0 -z-1">
+        <picture>
+            <source
+                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc3.jpg' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc3.jpg' preset='full_2x' }} 2x"
+                sizes="(max-width: 600px) 100vw, 50vw"
+                type="image/webp"
+            >
+            <source
+                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc3.jpg' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc3.jpg' preset='full_fallback_2x' }} 2x"
+                sizes="(max-width: 600px) 100vw, 50vw"
+                type="image/png"
+            >
+            <img
+                src="{{ glide src='/images/filogie_site_fond-accueil-bloc3.jpg' preset='full_fallback_2x' }}"
+                alt=""
+                class="w-full h-full"
+            >
+        </picture>
+    </div>
+    <hr class="mt-10">
+</section>
+<section class="px-base pt-10 pb-20 flex flex-col items-center">
+    <div class="text-center mb-5">{{ contact_text | nl2br }}</div>
+    <a href="mailto:{{ address_contact:email }}" class="bg-[#FFDB34] leading-none rounded-full py-1.5 px-3 trim-text w-fit mb-15 hover:bg-[#E6C200] transition-colors duration-300">{{ address_contact:email }}</a>
+    <form method="post" action="https://newsletter.infomaniak.com/v3/api/1/newsletters/webforms/24821/submit" class="inf-form w-full max-w-lg flex flex-col items-center gap-4">
+        <style>
+            .inf-main_4299f209da83da82b711f1d631cc607b { background: none; padding: 0; margin: 0; }
+            .inf-main_4299f209da83da82b711f1d631cc607b .inf-content { margin-top: 0; }
+            .inf-input.inf-error input { outline-color: #dc2626; outline-offset: 0; }
+            .inf-input.inf-error span.inf-message { display: block !important; color: #dc2626; font-size: 0.8rem; margin-top: 0.25rem; padding-left: 1.25rem; }
+        </style>
+        <input type="email" name="email" style="display:none" />
+        <input type="hidden" name="key" value="eyJpdiI6IlVvcnFQOFlpamdEaGllVVRsWWRQKzB1MHFZbUliVkVlZWNWdHFPcm5SXC80PSIsIm1hYyI6IjE3OTVjOTEyNWQzZTI4MDI5NDUxNmY0YzJmOWYwYTcwY2ZiZTUxODVlMmRlMzZlZGE0OWQ4NjFkYmVjYTMzMGUiLCJ2YWx1ZSI6ImFpaGFVY1NvRXFlbDkzazNjazVFekZvRmtmZGZ5SGRoZjZhZFB6eGRVR289In0=">
+        <input type="hidden" name="webform_id" value="24821">
+        <div class="inf-main_4299f209da83da82b711f1d631cc607b w-full flex flex-col items-center gap-4">
+            <div class="inf-success hidden w-full text-center font-bold py-4">
+                {{ newsletter_success_message }}
+            </div>
+            <div class="inf-content w-full flex flex-col items-center gap-4">
+                <div class="text-center font-bold">{{ newsletter_text | nl2br }}</div>
+                <div class="inf-input inf-input-text w-full">
+                    <input class="bg-[#D9D9D9] rounded-full py-2 px-5 w-full placeholder:opacity-70" type="email" name="inf[1]" data-inf-meta="1" data-inf-error="" required="required" placeholder="{{ newsletter_email_placeholder }}">
+                </div>
+                <p class="text-xs text-center opacity-60">{{ newsletter_rgpd_text }}</p>
+                <script src="https://newsletter.infomaniak.com/v3/static/mcaptcha/altcha.min.js?v=1782126000" type="module"></script>
+                <altcha-widget hidelogo hidefooter floating challengeurl="https://newsletter.infomaniak.com/v3/altcha-challenge"></altcha-widget>
+                <script src="https://newsletter.infomaniak.com/v3/static/mcaptcha/altcha-index.js?v=1782126000" defer></script>
+                <script src="https://newsletter.infomaniak.com/v3/static/webform_index.js?v=1782126000"></script>
+                <button type="submit" class="bg-[#B89871] leading-none rounded-full py-2 px-5 trim-text w-fit cursor-pointer hover:bg-[#A07C5A] transition-colors duration-300">{{ newsletter_button }}</button>
+            </div>
+        </div>
+    </form>
+</section>

@@ -1,0 +1,4 @@
+title: Logos
+disk: logos
+validate:
+  - 'mimes:svg,png,webp'

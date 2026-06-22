@@ -93,6 +93,30 @@ return [
             'throw' => false,
         ],
 
+        'og' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/og'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/og',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'news' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/news'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/news',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'logos' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/logos'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/logos',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
     ],
 
     /*
