@@ -1,0 +1,171 @@
+name: Deploy
+description: |
+  Runs on a self-hosted runner co-located with the Docker host. Extracts
+  the compose bundle, pulls the new application image from GHCR, runs
+  migrations, and brings the app stack up. Environment-specific values
+  (path, GHCR pull token, compose project name) are passed in as inputs so
+  the same action can be reused by the preprod and production deploy jobs
+  without leaking secrets between environments.
+
+inputs:
+  deploy_path:
+    description: Base deployment path on the server (e.g. /srv/filogie)
+    required: true
+  ghcr_user:
+    required: true
+  ghcr_token:
+    required: true
+  image_tag:
+    required: true
+  release_id:
+    required: true
+  bundle_path:
+    description: Local path to the compose bundle tgz already downloaded.
+    required: true
+  compose_project_name:
+    description: Docker Compose project name (e.g. filogie or filogie-ci)
+    required: false
+    default: filogie
+
+runs:
+  using: composite
+  steps:
+    - name: Deploy
+      shell: bash
+      env:
+        DEPLOY_PATH:          ${{ inputs.deploy_path }}
+        GHCR_USER:            ${{ inputs.ghcr_user }}
+        GHCR_TOKEN:           ${{ inputs.ghcr_token }}
+        IMAGE_TAG:            ${{ inputs.image_tag }}
+        RELEASE_ID:           ${{ inputs.release_id }}
+        BUNDLE_PATH:          ${{ inputs.bundle_path }}
+        COMPOSE_PROJECT_NAME: ${{ inputs.compose_project_name }}
+        REPO:                 ${{ github.repository }}
+      run: |
+        set -euo pipefail
+
+        IMAGE_REF="ghcr.io/${REPO}:${IMAGE_TAG}"
+        RELEASE_DIR="$DEPLOY_PATH/releases/$RELEASE_ID"
+        SHARED_DIR="$DEPLOY_PATH/shared"
+        CURRENT="$DEPLOY_PATH/current"
+
+        mkdir -p "$RELEASE_DIR" "$SHARED_DIR/backups" "$SHARED_DIR/database" "$SHARED_DIR/storage"
+        tar -xzf "$BUNDLE_PATH" -C "$RELEASE_DIR"
+
+        # ── Shared directory bootstrap (idempotent) ──────────────────────────
+        # Creates missing subdirectories, seeds .env from .env.example, and
+        # copies robots.txt and .htaccess into shared/public/ — each step is a
+        # no-op when the target already exists.
+        mkdir -p \
+          "$SHARED_DIR/storage/app/public" \
+          "$SHARED_DIR/storage/framework/cache/data" \
+          "$SHARED_DIR/storage/framework/sessions" \
+          "$SHARED_DIR/storage/framework/views" \
+          "$SHARED_DIR/storage/logs" \
+          "$SHARED_DIR/content" \
+          "$SHARED_DIR/users" \
+          "$SHARED_DIR/public" \
+          "$SHARED_DIR/auth"
+
+        if [ ! -f "$SHARED_DIR/.env" ]; then
+          echo "[deploy] $SHARED_DIR/.env not found – copying .env.example (edit before next restart)"
+          cp "$RELEASE_DIR/.env.example" "$SHARED_DIR/.env"
+          chmod 640 "$SHARED_DIR/.env"
+        fi
+
+        if [ ! -f "$SHARED_DIR/public/robots.txt" ]; then
+          cp "$RELEASE_DIR/public/robots.txt" "$SHARED_DIR/public/robots.txt"
+        fi
+
+        if [ ! -f "$SHARED_DIR/public/.htaccess" ]; then
+          cp "$RELEASE_DIR/public/.htaccess" "$SHARED_DIR/public/.htaccess"
+        fi
+
+        # Guard: the container entrypoint can create database.sqlite as a directory
+        # on a botched first run (no file → Docker bind-mount auto-creates a dir).
+        [ -d "$SHARED_DIR/database/database.sqlite" ] && rm -rf "$SHARED_DIR/database/database.sqlite"
+        if [ ! -f "$SHARED_DIR/database/database.sqlite" ]; then
+          touch "$SHARED_DIR/database/database.sqlite"
+          chmod 664 "$SHARED_DIR/database/database.sqlite"
+        fi
+
+        # Login to GHCR
+        echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USER" --password-stdin
+
+        # Fix ownership — www-data inside containers must be able to write
+        # to storage, database, and content.
+        docker run --rm \
+          -v "$SHARED_DIR:/shared" \
+          --user root \
+          "$IMAGE_REF" \
+          sh -c "chown -R www-data:www-data /shared/storage /shared/database /shared/content /shared/users /shared/public /shared/auth /shared/backups /shared/.env"
+        # ── End bootstrap ────────────────────────────────────────────────────
+
+        # Pre-flight DB backup (online-safe)
+        TS=$(date -u +%Y%m%dT%H%M%SZ)
+        if [ -f "$SHARED_DIR/database/database.sqlite" ]; then
+          python3 "$GITHUB_ACTION_PATH/sqlite_backup.py" \
+            "$SHARED_DIR/database/database.sqlite" \
+            "$SHARED_DIR/backups/db-$TS.sqlite"
+          ls -1t "$SHARED_DIR/backups"/db-*.sqlite | tail -n +31 | xargs -r rm --
+        fi
+
+        # Pull new image
+        docker pull "$IMAGE_REF"
+
+        # Record previous tag for one-line rollback
+        if [ -f "$SHARED_DIR/current-tag.txt" ]; then
+          cp "$SHARED_DIR/current-tag.txt" "$SHARED_DIR/last-tag.txt"
+        fi
+        echo "$IMAGE_TAG" > "$SHARED_DIR/current-tag.txt"
+
+        # Run migrations BEFORE swapping containers.
+        docker run --rm \
+          --env-file "$SHARED_DIR/.env" \
+          --entrypoint php \
+          -v "$SHARED_DIR/database:/var/www/html/database" \
+          -v "$SHARED_DIR/storage:/var/www/html/storage" \
+          "$IMAGE_REF" \
+          artisan migrate --force
+
+        # Flip the `current` symlink atomically
+        ln -sfn "$RELEASE_DIR" "$DEPLOY_PATH/current.tmp"
+        mv -Tf "$DEPLOY_PATH/current.tmp" "$CURRENT"
+
+        # Force-rebuild the shared nginx public volume from the new image.
+        # Must stop first so nginx releases the volume before we remove it.
+        COMPOSE_PROJECT_NAME="$COMPOSE_PROJECT_NAME" \
+        APP_IMAGE_TAG="$IMAGE_TAG" \
+        SHARED_PATH="$SHARED_DIR" \
+        docker compose -f "$CURRENT/docker/compose/compose.prod.yaml" down 2>/dev/null || true
+        docker volume rm "${COMPOSE_PROJECT_NAME}_app-public" 2>/dev/null || true
+
+        # Bring up the stack with the new image tag.
+        # SHARED_PATH lets the compose file resolve absolute paths without
+        # hardcoding a specific deploy root. APP_HTTP_PORT is read from
+        # shared/.env so each environment can use a different loopback port
+        # (e.g. 8080 on prod, 8085 on preprod) without workflow changes.
+        APP_HTTP_PORT=$(grep -E '^APP_HTTP_PORT=' "$SHARED_DIR/.env" | cut -d= -f2 | tr -d "[:space:]\"'")
+        COMPOSE_PROJECT_NAME="$COMPOSE_PROJECT_NAME" \
+        APP_IMAGE_TAG="$IMAGE_TAG" \
+        SHARED_PATH="$SHARED_DIR" \
+        APP_HTTP_PORT="${APP_HTTP_PORT:-8080}" \
+        docker compose \
+          -f "$CURRENT/docker/compose/compose.prod.yaml" \
+          up -d --remove-orphans
+
+        # Post-boot cache warm
+        COMPOSE_PROJECT_NAME="$COMPOSE_PROJECT_NAME" \
+        APP_IMAGE_TAG="$IMAGE_TAG" \
+        SHARED_PATH="$SHARED_DIR" \
+        docker compose -f "$CURRENT/docker/compose/compose.prod.yaml" exec -T app sh -c "
+          php artisan config:cache && \
+          php artisan route:cache && \
+          php artisan view:cache && \
+          php artisan event:cache && \
+          php artisan statamic:stache:warm
+        "
+
+        # Prune
+        docker image prune -f --filter "until=168h"
+        ls -1dt "$DEPLOY_PATH/releases"/* | tail -n +6 | xargs -r rm -rf
