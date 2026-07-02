@@ -7,9 +7,9 @@
     <div class="relative">
         <div class="flex items-center gap-5 justify-between">
             {{ if is_homepage }}
-            <h1 class="max-w-lg text-balance">{{ global_site:legal_name }}</h1>
+            <h1 class="max-w-100 sm:max-w-120 lg:max-w-lg">{{ global_site:legal_name }}</h1>
             {{ else }}
-            <a href="/" class="max-w-lg text-balance">{{ global_site:legal_name }}</a>
+            <a href="/" class="max-w-100 sm:max-w-120 lg:max-w-lg">{{ global_site:legal_name }}</a>
             {{ /if }}
             {{ partial:asset :image="global_site:logo_small:id" :alt_glide="global_site:logo_small:_alt" class="h-15 max-lg:hidden" preset="third" }}
             <button class="lg:hidden cursor-pointer" aria-label="Open menu" @click="isOpen = true" x-show="!isOpen">
