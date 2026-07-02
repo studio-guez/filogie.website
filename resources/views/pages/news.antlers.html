@@ -28,7 +28,14 @@
                         {{ /if }}
                         <h2 class="font-bold text-body-lg max-lg:mb-5">{{ title }}</h2>
                     </div>
-                    <div class="bard">{{ description }}</div>
+                    <div>
+                        <div class="bard">{{ description }}</div>
+                        {{ if external_link }}
+                        <div class="mt-5 text-right">
+                        <a href="{{ external_link }}" target="_blank" rel="noopener noreferrer" class="font-bold text-body-lg underline hover:opacity-70 transition-opacity duration-300">{{ external_link_text ?? external_link | replace('http://', '') | replace('https://', '') | regex_replace('\?.*', '') }} →</a>
+                        </div>
+                        {{ /if }}
+                    </div>
                 </div>
             </article>
             {{ if !last }}
