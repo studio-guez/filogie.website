@@ -1,17 +1,17 @@
-{{ if is_homepage }}
-<div class="px-base mb-0 md:mb-[-4vw] pt-5 z-2 relative">
+<div class="px-base mb-0 md:mb-[-4vw] pt-5 z-2 relative pointer-events-none">
     {{ partial:asset :image="global_site:logo_full:id" :alt_glide="global_site:logo_full:_alt" class="w-full" preset="full" }}
 </div>
-{{ /if }}
-<header class="px-base sticky top-0 pt-5 z-1 transition-colors duration-300" x-data="{ isOpen: false, isSticky: false }" x-init="isSticky = document.querySelector('main').getBoundingClientRect().top < -50" @scroll.window="isSticky = document.querySelector('main').getBoundingClientRect().top < -50" @resize.window="isSticky = document.querySelector('main').getBoundingClientRect().top < -50" :class="{ 'bg-white/75': isSticky }">
+<header class="px-base sticky top-0 pt-5 z-1 transition-colors duration-300" x-data="{ isOpen: false, isSticky: false, showMonogram: false, updateScroll() { const top = document.querySelector('main').getBoundingClientRect().top; this.isSticky = top < -50; this.showMonogram = top < 0; console.log(top) } }" x-init="document.addEventListener('DOMContentLoaded', function () { document.updateScroll() });" @scroll.window="updateScroll()" @resize.window="updateScroll()" :class="{ 'bg-white/90': isSticky }">
     <div class="relative">
         <div class="flex items-center gap-5 justify-between">
             {{ if is_homepage }}
-            <h1 class="max-w-lg text-balance">{{ global_site:legal_name }}</h1>
+            <h1 class="max-w-100 sm:max-w-120 lg:max-w-lg"><a href="/">{{ global_site:legal_name }}</a></h1>
             {{ else }}
-            <a href="/" class="max-w-lg text-balance">{{ global_site:legal_name }}</a>
+            <a href="/" class="max-w-100 sm:max-w-120 lg:max-w-lg">{{ global_site:legal_name }}</a>
             {{ /if }}
-            {{ partial:asset :image="global_site:logo_small:id" :alt_glide="global_site:logo_small:_alt" class="h-15 max-lg:hidden" preset="third" }}
+            <a href="/" :class="showMonogram && 'opacity-100! pointer-events-auto!'" class="opacity-0 pointer-events-none transition-opacity duration-300">
+                {{ partial:asset :image="global_site:logo_small:id" :alt_glide="global_site:logo_small:_alt" class="h-15 max-lg:hidden" preset="third" }}
+            </a>
             <button class="lg:hidden cursor-pointer" aria-label="Open menu" @click="isOpen = true" x-show="!isOpen">
                 <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
                     <rect x="7" y="9" width="13" height="2" class="fill-black"/>
