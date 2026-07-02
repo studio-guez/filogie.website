@@ -185,7 +185,7 @@ jobs:
     name: Deploy to preproduction
     needs: build-image
     if: needs.build-image.outputs.target == 'preprod'
-    runs-on: [self-hosted, filogie, docker]
+    runs-on: [self-hosted, filogie, preprod, docker]
     timeout-minutes: 15
     environment: preprod
     concurrency:
@@ -193,7 +193,7 @@ jobs:
       cancel-in-progress: false
     steps:
       - uses: actions/checkout@v5
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: compose-${{ needs.build-image.outputs.release_id }}
           path: /tmp
@@ -216,7 +216,7 @@ jobs:
     name: Deploy to production
     needs: build-image
     if: needs.build-image.outputs.target == 'production'
-    runs-on: [self-hosted, filogie-prod, docker]
+    runs-on: [self-hosted, filogie, production, docker]
     timeout-minutes: 15
     environment: production
     concurrency:
@@ -224,7 +224,7 @@ jobs:
       cancel-in-progress: false
     steps:
       - uses: actions/checkout@v5
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: compose-${{ needs.build-image.outputs.release_id }}
           path: /tmp
