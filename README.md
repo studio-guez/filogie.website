@@ -105,6 +105,14 @@ each running on a self-hosted runner registered on the corresponding server.
 `workflow_dispatch` accepts a `target` input (`preprod` or `production`) for
 one-off manual deploys.
 
+```bash
+# Trigger a manual deploy to preproduction
+gh workflow run ci.yml --ref preprod -f target=preprod
+
+# Trigger a manual deploy to production
+gh workflow run ci.yml --ref main -f target=production
+```
+
 ### Layout on each target server
 
 ```
@@ -182,11 +190,54 @@ The runner must be registered with the label matching the workflow:
 - preprod job: `self-hosted`, `filogie`, `docker`
 - production job: `self-hosted`, `filogie-prod`, `docker`
 
-Generate an `APP_KEY` once and paste it into the environment's `.env`:
+Generate an `APP_KEY` once and paste it into the environment's `.env`
+(`latest` for production, `preprod` for preproduction):
 
 ```bash
-docker run --rm ghcr.io/studio-guez/filogie.website:latest \
+sudo -u deploy docker run --rm ghcr.io/studio-guez/filogie.website:<latest|preprod> \
   php artisan key:generate --show
+```
+
+### First deploy
+
+After triggering the first deploy (push to `preprod` / `main`, or via
+`gh workflow run`), the pipeline seeds `shared/.env` from `.env.example` and
+starts the stack. The app won't be fully operational until you fill in real
+values. SSH in and follow these steps:
+
+```bash
+ssh deploy@<server>
+
+# Set these once for the whole session.
+# APP_IMAGE_TAG: use "latest" on production, "preprod" on preproduction.
+export DEPLOY_PATH=<deploy_path>
+export SHARED_PATH="$DEPLOY_PATH/shared"
+export APP_IMAGE_TAG=latest          # or: preprod
+export COMPOSE_PROJECT_NAME=filogie  # or your project name
+alias dc="docker compose -f $DEPLOY_PATH/current/docker/compose/compose.prod.yaml"
+
+# 1. Create the first Statamic admin user.
+dc exec app php artisan statamic:make:user
+
+# 2. Generate APP_KEY — must use --show because the container has no writable .env.
+dc exec app php artisan key:generate --show
+# → copy the "base64:..." output
+
+# 3. Fill in the real environment values.
+#    At minimum: APP_KEY (from above), APP_URL, APP_ENV, and any mail / licence keys.
+nano "$SHARED_PATH/.env"
+
+# 4. Restart the app container so it picks up the new env.
+dc restart app
+
+# 5. Re-warm the caches (the first boot used the placeholder .env).
+dc exec app sh -c "
+    php artisan config:cache &&
+    php artisan route:cache &&
+    php artisan view:cache &&
+    php artisan event:cache &&
+    php artisan statamic:stache:warm
+  "
 ```
 
 ### Host-level reverse proxy (out of scope for this repo)
