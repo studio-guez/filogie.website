@@ -41,7 +41,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage',
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,
@@ -64,7 +64,7 @@ return [
         'assets' => [
             'driver' => 'local',
             'root' => storage_path('app/public/assets'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/assets',
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage/assets',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -72,7 +72,7 @@ return [
         'favicons' => [
             'driver' => 'local',
             'root' => storage_path('app/public/favicons'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/favicons',
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage/favicons',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -80,7 +80,7 @@ return [
         'titles' => [
             'driver' => 'local',
             'root' => storage_path('app/public/titles'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/titles',
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage/titles',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -88,7 +88,7 @@ return [
         'actions' => [
             'driver' => 'local',
             'root' => storage_path('app/public/actions'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/actions',
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage/actions',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -96,7 +96,7 @@ return [
         'og' => [
             'driver' => 'local',
             'root' => storage_path('app/public/og'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/og',
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage/og',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -104,7 +104,7 @@ return [
         'news' => [
             'driver' => 'local',
             'root' => storage_path('app/public/news'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/news',
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage/news',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -112,7 +112,7 @@ return [
         'logos' => [
             'driver' => 'local',
             'root' => storage_path('app/public/logos'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/logos',
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage/logos',
             'visibility' => 'public',
             'throw' => false,
         ],
