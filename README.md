@@ -238,6 +238,28 @@ dc exec app sh -c "
     php artisan event:cache &&
     php artisan statamic:stache:warm
   "
+
+# 6. (Preprod only — optional) Enable HTTP Basic Auth.
+#    The nginx container mounts $SHARED_PATH/auth/ into /etc/nginx/auth/ (read-only).
+#    Leave the directory empty to disable auth (nginx's glob matches nothing).
+
+# Generate the htpasswd file (openssl is always available — no extra packages needed)
+printf '%s:%s\n' "filogie" "$(openssl passwd -apr1 'your-password')" \
+  > "$SHARED_PATH/auth/.htpasswd"
+chmod 640 "$SHARED_PATH/auth/.htpasswd"
+
+# Create the nginx config that activates Basic Auth
+cat > "$SHARED_PATH/auth/auth.conf" <<'EOF'
+auth_basic "Preprod";
+auth_basic_user_file /etc/nginx/auth/.htpasswd;
+EOF
+
+# Reload nginx (no restart needed)
+dc exec nginx nginx -s reload
+
+# To disable auth later: remove the files and reload.
+# rm "$SHARED_PATH/auth/auth.conf" "$SHARED_PATH/auth/.htpasswd"
+# dc exec nginx nginx -s reload
 ```
 
 ### Host-level reverse proxy (out of scope for this repo)
