@@ -246,7 +246,7 @@ dc exec app sh -c "
 # Generate the htpasswd file (openssl is always available — no extra packages needed)
 printf '%s:%s\n' "filogie" "$(openssl passwd -apr1 'your-password')" \
   > "$SHARED_PATH/auth/.htpasswd"
-chmod 640 "$SHARED_PATH/auth/.htpasswd"
+chmod 644 "$SHARED_PATH/auth/.htpasswd"
 
 # Create the nginx config that activates Basic Auth
 cat > "$SHARED_PATH/auth/auth.conf" <<'EOF'
@@ -432,7 +432,7 @@ To password-protect the preprod environment, SSH into the preprod server and run
 # 1. Generate the htpasswd file (no extra packages needed — openssl is always available)
 printf '%s:%s\n' "filogie" "$(openssl passwd -apr1 'your-password')" \
   > /srv/filogie/shared/auth/.htpasswd
-chmod 640 /srv/filogie/shared/auth/.htpasswd
+chmod 644 /srv/filogie/shared/auth/.htpasswd
 
 # 2. Create the nginx config that activates Basic Auth
 cat > /srv/filogie/shared/auth/auth.conf <<'EOF'
