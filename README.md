@@ -500,6 +500,7 @@ off-site choice).
 | Stale opcache                 | The container is replaced every deploy; if you see staleness anyway, restart `app`.                                |
 | `docker pull` fails on server | Re-authenticate to GHCR: `echo $PAT \| docker login ghcr.io -u <user> --password-stdin`                            |
 | Lost CP-edited users/content  | Check that the content sub-dirs (`collections/pages`, `globals/fr`, `trees/collections`) and `users/` are bind-mounted on the host and owned by UID 1000. |
+| Mixed-content errors (CSS/JS loaded over `http://` on an `https://` page) | `APP_URL` in `$SHARED_PATH/.env` must start with `https://` (e.g. `APP_URL=https://staging.filogie.ch`). `AppServiceProvider` calls `URL::forceScheme('https')` whenever `APP_URL` begins with `https://`, so setting the correct URL is all that is required. After editing the file restart the app and re-warm the config cache: `dc restart app && dc exec app php artisan config:cache`. |
 
 ## Repository layout
 
