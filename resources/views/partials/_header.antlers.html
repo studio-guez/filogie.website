@@ -1,7 +1,7 @@
 <div class="px-base mb-0 md:mb-[-4vw] pt-5 z-2 relative pointer-events-none">
     {{ partial:asset :image="global_site:logo_full:id" :alt_glide="global_site:logo_full:_alt" class="w-full" preset="full" }}
 </div>
-<header class="px-base sticky top-0 pt-5 z-1 transition-colors duration-300" x-data="{ isOpen: false, isSticky: false, showMonogram: false, updateScroll() { const top = document.querySelector('main').getBoundingClientRect().top; this.isSticky = top < -50; this.showMonogram = top < 0; console.log(top) } }" x-init="document.addEventListener('DOMContentLoaded', function () { document.updateScroll() });" @scroll.window="updateScroll()" @resize.window="updateScroll()" :class="{ 'bg-white/90': isSticky }">
+<header class="px-base sticky top-0 pt-5 z-1 transition-colors duration-300" x-data="{ isOpen: false, isSticky: false, showMonogram: false, updateScroll() { const top = document.querySelector('main').getBoundingClientRect().top; this.isSticky = top < -50; this.showMonogram = top < 0; } }" x-init="updateScroll()" @scroll.window="updateScroll()" @resize.window="updateScroll()" :class="{ 'bg-white/90': isSticky }">
     <div class="relative">
         <div class="flex items-center gap-5 justify-between">
             {{ if is_homepage }}
