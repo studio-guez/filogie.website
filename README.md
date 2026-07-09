@@ -52,6 +52,28 @@ Mailpit UI: <http://localhost:8025>.
 ./vendor/bin/sail shell         # bash inside the container
 ```
 
+## Image compression (public/images)
+
+Static decorative/background images in `public/images` (parallax shapes,
+section backgrounds, etc.) are **not** served through Glide. Source files in
+that folder are assumed to already be @2x (retina) assets. A script converts
+them to WebP and generates a half-size 1x variant for use in `srcset`:
+
+```bash
+./scripts/convert-images-to-webp.sh
+```
+
+This runs directly on the host (requires ImageMagick's `convert`, not run
+inside Sail) and produces, for every `.jpg`/`.jpeg`/`.png` in `public/images`:
+
+- `<name>.webp` — 2x version (original dimensions)
+- `<name>@1x.webp` — 1x version (half width/height)
+
+Optional arguments: `./scripts/convert-images-to-webp.sh [directory] [quality]`
+(defaults: `public/images`, quality `82`). Re-run it whenever a source image
+in `public/images` is added or replaced, and commit the generated `.webp`
+files alongside it.
+
 ## File-based Statamic users and content
 
 Statamic uses a flat-file user repository (`config/statamic/users.php` →
