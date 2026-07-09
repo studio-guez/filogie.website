@@ -19,120 +19,54 @@
         <hr class="mt-10 col-span-full">
     </section>
     <div class="absolute inset-0 -z-1" x-data="parallaxStack()">
-        <picture>
-            <source
-                srcset="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_4.png' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond_home-bloc-1_forme_4.png' preset='full_2x' }} 2x"
-                sizes="(max-width: 600px) 100vw, 50vw"
-                type="image/webp"
-            >
-            <source
-                srcset="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_4.png' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond_home-bloc-1_forme_4.png' preset='full_fallback_2x' }} 2x"
-                sizes="(max-width: 600px) 100vw, 50vw"
-                type="image/png"
-            >
-            <img
-                src="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_4.png' preset='full_fallback_2x' }}"
-                alt=""
-                class="w-full h-full absolute inset-x-0 bottom-0 will-change-transform"
-                data-speed="0.2"
-                x-effect="$el.style.transform = `translateY(${offset($el.dataset.speed)}px)`"
-            >
-        </picture>
-        <picture>
-            <source
-                srcset="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_5.png' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond_home-bloc-1_forme_5.png' preset='full_2x' }} 2x"
-                sizes="(max-width: 600px) 100vw, 50vw"
-                type="image/webp"
-            >
-            <source
-                srcset="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_5.png' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond_home-bloc-1_forme_5.png' preset='full_fallback_2x' }} 2x"
-                sizes="(max-width: 600px) 100vw, 50vw"
-                type="image/png"
-            >
-            <img
-                src="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_5.png' preset='full_fallback_2x' }}"
-                alt=""
-                class="w-full h-full absolute inset-x-0 bottom-0 will-change-transform"
-                data-speed="0.5"
-                x-effect="$el.style.transform = `translateY(${offset($el.dataset.speed)}px)`"
-            >
-        </picture>
-        <picture>
-            <source
-                srcset="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_1.png' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond_home-bloc-1_forme_1.png' preset='full_2x' }} 2x"
-                sizes="(max-width: 600px) 100vw, 50vw"
-                type="image/webp"
-            >
-            <source
-                srcset="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_1.png' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond_home-bloc-1_forme_1.png' preset='full_fallback_2x' }} 2x"
-                sizes="(max-width: 600px) 100vw, 50vw"
-                type="image/png"
-            >
-            <img
-                src="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_1.png' preset='full_fallback_2x' }}"
-                alt=""
-                class="w-full h-full absolute inset-x-0 bottom-0 will-change-transform"
-                data-speed="0.8"
-                x-effect="$el.style.transform = `translateY(${offset($el.dataset.speed)}px)`"
-            >
-        </picture>
-        <picture>
-            <source
-                srcset="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_6.png' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond_home-bloc-1_forme_6.png' preset='full_2x' }} 2x"
-                sizes="(max-width: 600px) 100vw, 50vw"
-                type="image/webp"
-            >
-            <source
-                srcset="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_6.png' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond_home-bloc-1_forme_6.png' preset='full_fallback_2x' }} 2x"
-                sizes="(max-width: 600px) 100vw, 50vw"
-                type="image/png"
-            >
-            <img
-                src="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_6.png' preset='full_fallback_2x' }}"
-                alt=""
-                class="w-full h-full absolute inset-x-0 bottom-0 will-change-transform"
-                data-speed="1.1"
-                x-effect="$el.style.transform = `translateY(${offset($el.dataset.speed)}px)`"
-            >
-        </picture>
-        <picture>
-            <source
-                srcset="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_2.png' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond_home-bloc-1_forme_2.png' preset='full_2x' }} 2x"
-                sizes="(max-width: 600px) 100vw, 50vw"
-                type="image/webp"
-            >
-            <source
-                srcset="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_2.png' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond_home-bloc-1_forme_2.png' preset='full_fallback_2x' }} 2x"
-                sizes="(max-width: 600px) 100vw, 50vw"
-                type="image/png"
-            >
-            <img
-                src="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_2.png' preset='full_fallback_2x' }}"
-                alt=""
-                class="w-full h-full absolute inset-x-0 bottom-0 mix-blend-color will-change-transform"
-                data-speed="1.4"
-                x-effect="$el.style.transform = `translateY(${offset($el.dataset.speed)}px)`"
-            >
-        </picture>
-        <picture>
-            <source
-                srcset="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_3.png' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond_home-bloc-1_forme_3.png' preset='full_2x' }} 2x"
-                sizes="(max-width: 600px) 100vw, 50vw"
-                type="image/webp"
-            >
-            <source
-                srcset="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_3.png' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond_home-bloc-1_forme_3.png' preset='full_fallback_2x' }} 2x"
-                sizes="(max-width: 600px) 100vw, 50vw"
-                type="image/png"
-            >
-            <img
-                src="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_3.png' preset='full_fallback_2x' }}"
-                alt=""
-                class="w-full h-full absolute inset-x-0 bottom-0 mix-blend-lighten will-change-transform"
-                data-speed="1.7"
-                x-effect="$el.style.transform = `translateY(${offset($el.dataset.speed)}px)`"
-            >
-        </picture>
+        <img
+            srcset="/images/filogie_site_fond_home-bloc-1_forme_4@1x.webp 1x, /images/filogie_site_fond_home-bloc-1_forme_4.webp 2x"
+            src="/images/filogie_site_fond_home-bloc-1_forme_4.webp"
+            alt=""
+            class="w-full h-full absolute inset-x-0 bottom-0 will-change-transform"
+            data-speed="0.2"
+            x-effect="$el.style.transform = `translateY(${offset($el.dataset.speed)}px)`"
+        >
+        <img
+            srcset="/images/filogie_site_fond_home-bloc-1_forme_5@1x.webp 1x, /images/filogie_site_fond_home-bloc-1_forme_5.webp 2x"
+            src="/images/filogie_site_fond_home-bloc-1_forme_5.webp"
+            alt=""
+            class="w-full h-full absolute inset-x-0 bottom-0 will-change-transform"
+            data-speed="0.5"
+            x-effect="$el.style.transform = `translateY(${offset($el.dataset.speed)}px)`"
+        >
+        <img
+            srcset="/images/filogie_site_fond_home-bloc-1_forme_1@1x.webp 1x, /images/filogie_site_fond_home-bloc-1_forme_1.webp 2x"
+            src="/images/filogie_site_fond_home-bloc-1_forme_1.webp"
+            alt=""
+            class="w-full h-full absolute inset-x-0 bottom-0 will-change-transform"
+            data-speed="0.8"
+            x-effect="$el.style.transform = `translateY(${offset($el.dataset.speed)}px)`"
+        >
+        <img
+            srcset="/images/filogie_site_fond_home-bloc-1_forme_6@1x.webp 1x, /images/filogie_site_fond_home-bloc-1_forme_6.webp 2x"
+            src="/images/filogie_site_fond_home-bloc-1_forme_6.webp"
+            alt=""
+            class="w-full h-full absolute inset-x-0 bottom-0 will-change-transform"
+            data-speed="1.1"
+            x-effect="$el.style.transform = `translateY(${offset($el.dataset.speed)}px)`"
+        >
+        <img
+            srcset="/images/filogie_site_fond_home-bloc-1_forme_2@1x.webp 1x, /images/filogie_site_fond_home-bloc-1_forme_2.webp 2x"
+            src="/images/filogie_site_fond_home-bloc-1_forme_2.webp"
+            alt=""
+            class="w-full h-full absolute inset-x-0 bottom-0 mix-blend-color will-change-transform"
+            data-speed="1.4"
+            x-effect="$el.style.transform = `translateY(${offset($el.dataset.speed)}px)`"
+        >
+        <img
+            srcset="/images/filogie_site_fond_home-bloc-1_forme_3@1x.webp 1x, /images/filogie_site_fond_home-bloc-1_forme_3.webp 2x"
+            src="/images/filogie_site_fond_home-bloc-1_forme_3.webp"
+            alt=""
+            class="w-full h-full absolute inset-x-0 bottom-0 mix-blend-lighten will-change-transform"
+            data-speed="1.7"
+            x-effect="$el.style.transform = `translateY(${offset($el.dataset.speed)}px)`"
+        >
     </div>
 </div>
 <section class="px-base pt-10 relative">
@@ -153,23 +87,12 @@
     </div>
     <hr class="mt-10">
     <div class="absolute inset-0 -z-1">
-        <picture>
-            <source
-                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc2.jpg' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc2.jpg' preset='full_2x' }} 2x"
-                sizes="(max-width: 600px) 100vw, 50vw"
-                type="image/webp"
-            >
-            <source
-                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc2.jpg' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc2.jpg' preset='full_fallback_2x' }} 2x"
-                sizes="(max-width: 600px) 100vw, 50vw"
-                type="image/png"
-            >
-            <img
-                src="{{ glide src='/images/filogie_site_fond-accueil-bloc2.jpg' preset='full_fallback_2x' }}"
-                alt=""
-                class="w-full h-full"
-            >
-        </picture>
+        <img
+            srcset="/images/filogie_site_fond-accueil-bloc2@1x.webp 1x, /images/filogie_site_fond-accueil-bloc2.webp 2x"
+            src="/images/filogie_site_fond-accueil-bloc2.webp"
+            alt=""
+            class="w-full h-full"
+        >
     </div>
 </section>
 <section class="px-base pt-10 relative">
@@ -198,23 +121,12 @@
         </div>
     </div>
     <div class="absolute inset-0 -z-1">
-        <picture>
-            <source
-                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc3.jpg' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc3.jpg' preset='full_2x' }} 2x"
-                sizes="(max-width: 600px) 100vw, 50vw"
-                type="image/webp"
-            >
-            <source
-                srcset="{{ glide src='/images/filogie_site_fond-accueil-bloc3.jpg' preset='full_fallback' }} 1x, {{ glide src='/images/filogie_site_fond-accueil-bloc3.jpg' preset='full_fallback_2x' }} 2x"
-                sizes="(max-width: 600px) 100vw, 50vw"
-                type="image/png"
-            >
-            <img
-                src="{{ glide src='/images/filogie_site_fond-accueil-bloc3.jpg' preset='full_fallback_2x' }}"
-                alt=""
-                class="w-full h-full"
-            >
-        </picture>
+        <img
+            srcset="/images/filogie_site_fond-accueil-bloc3@1x.webp 1x, /images/filogie_site_fond-accueil-bloc3.webp 2x"
+            src="/images/filogie_site_fond-accueil-bloc3.webp"
+            alt=""
+            class="w-full h-full"
+        >
     </div>
     <hr class="mt-10">
 </section>
