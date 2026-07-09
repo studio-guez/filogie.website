@@ -18,7 +18,7 @@
         </div>
         <hr class="mt-10 col-span-full">
     </section>
-    <div class="absolute inset-0 -z-1">
+    <div class="absolute inset-0 -z-1" x-data="parallaxStack()">
         <picture>
             <source
                 srcset="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_4.png' preset='full' }} 1x, {{ glide src='/images/filogie_site_fond_home-bloc-1_forme_4.png' preset='full_2x' }} 2x"
@@ -33,7 +33,9 @@
             <img
                 src="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_4.png' preset='full_fallback_2x' }}"
                 alt=""
-                class="w-full absolute inset-x-0 bottom-0"
+                class="w-full h-full absolute inset-x-0 bottom-0 will-change-transform"
+                data-speed="0.2"
+                x-effect="$el.style.transform = `translateY(${offset($el.dataset.speed)}px)`"
             >
         </picture>
         <picture>
@@ -50,7 +52,9 @@
             <img
                 src="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_5.png' preset='full_fallback_2x' }}"
                 alt=""
-                class="w-full absolute inset-x-0 bottom-0"
+                class="w-full h-full absolute inset-x-0 bottom-0 will-change-transform"
+                data-speed="0.5"
+                x-effect="$el.style.transform = `translateY(${offset($el.dataset.speed)}px)`"
             >
         </picture>
         <picture>
@@ -67,7 +71,9 @@
             <img
                 src="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_1.png' preset='full_fallback_2x' }}"
                 alt=""
-                class="w-full absolute inset-x-0 bottom-0"
+                class="w-full h-full absolute inset-x-0 bottom-0 will-change-transform"
+                data-speed="0.8"
+                x-effect="$el.style.transform = `translateY(${offset($el.dataset.speed)}px)`"
             >
         </picture>
         <picture>
@@ -84,7 +90,9 @@
             <img
                 src="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_6.png' preset='full_fallback_2x' }}"
                 alt=""
-                class="w-full absolute inset-x-0 bottom-0"
+                class="w-full h-full absolute inset-x-0 bottom-0 will-change-transform"
+                data-speed="1.1"
+                x-effect="$el.style.transform = `translateY(${offset($el.dataset.speed)}px)`"
             >
         </picture>
         <picture>
@@ -101,7 +109,9 @@
             <img
                 src="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_2.png' preset='full_fallback_2x' }}"
                 alt=""
-                class="w-full absolute inset-x-0 bottom-0 mix-blend-color"
+                class="w-full h-full absolute inset-x-0 bottom-0 mix-blend-color will-change-transform"
+                data-speed="1.4"
+                x-effect="$el.style.transform = `translateY(${offset($el.dataset.speed)}px)`"
             >
         </picture>
         <picture>
@@ -118,7 +128,9 @@
             <img
                 src="{{ glide src='/images/filogie_site_fond_home-bloc-1_forme_3.png' preset='full_fallback_2x' }}"
                 alt=""
-                class="w-full absolute inset-x-0 bottom-0 mix-blend-lighten"
+                class="w-full h-full absolute inset-x-0 bottom-0 mix-blend-lighten will-change-transform"
+                data-speed="1.7"
+                x-effect="$el.style.transform = `translateY(${offset($el.dataset.speed)}px)`"
             >
         </picture>
     </div>
