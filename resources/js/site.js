@@ -16,12 +16,29 @@ Alpine.data('parallaxStack', () => ({
 	progress: 0,
 	top: 0,
 	height: 0,
+	viewportWidth: 0,
+	viewportHeight: 0,
 
 	init() {
+		this.viewportWidth = window.innerWidth;
+		this.viewportHeight = window.innerHeight;
 		this.measure();
-		window.addEventListener('resize', () => this.measure());
+		window.addEventListener('resize', () => this.handleResize());
 		lenis.on('scroll', () => this.updateProgress());
 		this.updateProgress();
+	},
+
+	handleResize() {
+		// Mobile browsers fire `resize` when the address bar shows/hides while
+		// scrolling, which only changes window.innerHeight, not the width. Ignore
+		// those so the parallax offset doesn't jump mid-scroll; only remeasure on
+		// genuine width changes (real resize/orientation change).
+		if (window.innerWidth === this.viewportWidth) {
+			return;
+		}
+		this.viewportWidth = window.innerWidth;
+		this.viewportHeight = window.innerHeight;
+		this.measure();
 	},
 
 	measure() {
@@ -35,9 +52,11 @@ Alpine.data('parallaxStack', () => ({
 		// Distance left before the section's bottom edge reaches the bottom of the
 		// viewport, plus an extra buffer so the anim keeps settling for a bit
 		// longer after the section's bottom is fully on screen.
+		// Uses the cached viewportHeight (not the live window.innerHeight) so the
+		// mobile address bar showing/hiding mid-scroll doesn't shift the offset.
 		const endBuffer = 200;
 		const bottom = this.top + this.height + endBuffer;
-		const viewportBottom = window.scrollY + window.innerHeight;
+		const viewportBottom = window.scrollY + this.viewportHeight;
 		this.progress = Math.min(this.height + endBuffer, Math.max(0, bottom - viewportBottom));
 	},
 
