@@ -40,12 +40,13 @@ ARG WWWGROUP=1000
 RUN apt-get update && apt-get install -y --no-install-recommends \
         ca-certificates curl git unzip \
         libicu-dev libonig-dev libxml2-dev libzip-dev \
-        libjpeg-dev libpng-dev libwebp-dev libfreetype6-dev \
+        libmagickwand-dev \
         sqlite3 libsqlite3-dev \
         supervisor \
-    && docker-php-ext-configure gd --with-jpeg --with-webp --with-freetype \
     && docker-php-ext-install -j"$(nproc)" \
-        bcmath exif gd intl mbstring pcntl pdo_sqlite zip \
+        bcmath exif intl mbstring pcntl pdo_sqlite zip \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Match host UID/GID so bind-mounted SQLite + storage are writable from the container
