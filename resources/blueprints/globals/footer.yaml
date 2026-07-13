@@ -1,0 +1,35 @@
+title: Footer
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: contact_title
+            field:
+              type: text
+              display: 'Titre nous contacter'
+              validate:
+                - required
+          -
+            handle: meet_title
+            field:
+              type: text
+              display: 'Titre nous rencontrer'
+              validate:
+                - required
+          -
+            handle: write_title
+            field:
+              type: text
+              display: 'Titre nous écrire'
+              validate:
+                - required
+          -
+            handle: call_title
+            field:
+              type: text
+              display: 'Titre nous appeler'
+              validate:
+                - required

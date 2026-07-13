@@ -1,0 +1,118 @@
+title: Actualité
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+          -
+            handle: overtitle
+            field:
+              type: text
+              display: Sur-titre
+          -
+            handle: description
+            field:
+              buttons:
+                - anchor
+                - underline
+                - strikethrough
+                - superscript
+                - subscript
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+                - removeformat
+              remove_empty_nodes: trim
+              type: bard
+              display: Description
+              validate:
+                - required
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: media
+            field:
+              inline_label: Non
+              inline_label_when_true: Oui
+              type: toggle
+              display: 'Avec vidéo youtube'
+              validate:
+                - required
+          -
+            handle: featured_image
+            field:
+              container: news
+              restrict: true
+              max_files: 1
+              min_files: 1
+              type: assets
+              display: 'Image à la une'
+              validate:
+                - sometimes
+                - required
+                - 'mimes:jpg,jpeg,png,svg,webp'
+              if:
+                media: 'equals false'
+          -
+            handle: youtube_link
+            field:
+              type: text
+              display: 'Lien youtube'
+              validate:
+                - required
+                - sometimes
+                - url
+              if:
+                media: 'equals true'
+      -
+        fields:
+          -
+            handle: news_types
+            field:
+              type: terms
+              taxonomies:
+                - news_types
+              display: "Types d'actualités"
+              mode: select
+              validate:
+                - required
+          -
+            handle: date
+            field:
+              type: date
+              required: true
+              default: now
+              validate:
+                - required
+          -
+            handle: end_date
+            field:
+              type: date
+              display: 'Date de fin'
+      -
+        display: 'Lien externe'
+        fields:
+          -
+            handle: external_link
+            field:
+              type: text
+              display: Lien
+              validate:
+                - url
+          -
+            handle: external_link_text
+            field:
+              type: text
+              display: Texte

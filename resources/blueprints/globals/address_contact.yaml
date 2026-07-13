@@ -15,7 +15,7 @@ tabs:
               type: text
               display: E-mail
   address:
-    display: Adresse
+    display: 'Adresse Poste'
     sections:
       -
         fields:
@@ -77,6 +77,69 @@ tabs:
               display: 'Lien Google Maps'
               validate:
                 - url
+  address_visit:
+    display: 'Adresse Visite'
+    sections:
+      -
+        fields:
+          -
+            handle: visit_name
+            field:
+              type: text
+              display: Nom
+              validate:
+                - required
+          -
+            handle: visit_department
+            field:
+              type: text
+              display: Département
+          -
+            handle: visit_street_address
+            field:
+              type: text
+              display: Rue
+              localizable: true
+              validate:
+                - required
+          -
+            handle: visit_postal_code
+            field:
+              type: text
+              display: 'Code postal'
+              validate:
+                - required
+          -
+            handle: visit_city
+            field:
+              type: text
+              display: Ville
+              localizable: true
+              validate:
+                - required
+          -
+            handle: visit_country
+            field:
+              type: text
+              display: Pays
+              localizable: true
+              validate:
+                - required
+          -
+            handle: visit_country_code
+            field:
+              type: text
+              display: 'Code pays'
+              validate:
+                - required
+          -
+            handle: visit_google_maps_url
+            field:
+              input_type: url
+              type: text
+              display: 'Lien Google Maps'
+              validate:
+                - url
   social:
     display: 'Réseaux sociaux'
     sections:
@@ -109,15 +172,3 @@ tabs:
                             validate:
                               - required
                               - url
-  newsletter:
-    display: Newsletter
-    sections:
-      -
-        fields:
-          -
-            handle: newsletter_text
-            field:
-              type: text
-              display: 'Texte newsletter'
-              validate:
-                - required

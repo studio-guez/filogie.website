@@ -1,0 +1,43 @@
+title: News
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: image_title_h1
+            field:
+              container: titles
+              type: assets
+              display: 'Titre image'
+              validate:
+                - required
+                - 'mimes:svg'
+              restrict: true
+              max_files: 1
+              min_files: 1
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+      -
+        display: SEO
+        fields:
+          - import: seo_base

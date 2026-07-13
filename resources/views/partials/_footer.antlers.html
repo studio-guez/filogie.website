@@ -1,2 +1,44 @@
-<footer>
+<footer class="px-base bg-yellow">
+    <div class="pt-10 pb-25 grid grid-cols-2 lg:grid-cols-4 gap-y-5 gap-x-10 border-t">
+        {{ partial:asset :image="global_site:logo_full:id" :alt_glide="global_site:logo_full:_alt" class="max-lg:w-full max-lg:max-w-80 lg:h-12.5" preset="third" }}
+        <nav class="col-start-1 lg:col-start-3">
+            <ul>
+                {{ nav:footer }}
+                <li><a href="{{ url }}" class="underline">{{ title }}</a></li>
+                {{ /nav:footer }}
+            </ul>
+        </nav>
+        <div>
+            {{ if address_contact:email }}
+            <h2 class="font-bold">{{ footer:contact_title }}</h2>
+            <a href="mailto:{{ address_contact:email }}" class="inline-block mb-2.5 underline">{{ address_contact:email }}</a>
+            {{ /if }}
+            <h2 class="font-bold">{{ footer:meet_title }}</h2>
+            <address class="not-italic mb-2.5">
+                {{ if address_contact:visit_google_maps_link }}
+                <a href="{{ address_contact:visit_google_maps_link }}" target="_blank" rel="noopener noreferrer" class="underline">
+                {{ /if }}
+                {{ address_contact:visit_street_address }}<br>
+                {{ address_contact:visit_postal_code }} {{ address_contact:visit_city }}
+                {{ if address_contact:visit_google_maps_link }}
+                </a>
+                {{ /if }}
+            </address>
+            <h2 class="font-bold">{{ footer:write_title }}</h2>
+            <address class="not-italic not-last:mb-2.5">
+                {{ if address_contact:google_maps_link }}
+                <a href="{{ address_contact:google_maps_link }}" target="_blank" rel="noopener noreferrer" class="underline">
+                {{ /if }}
+                {{ address_contact:street_address }}<br>
+                {{ address_contact:postal_code }} {{ address_contact:city }}
+                {{ if address_contact:google_maps_link }}
+                </a>
+                {{ /if }}
+            </address>
+            {{ if address_contact:phone }}
+            <h2 class="font-bold">{{ footer:call_title }}</h2>
+            <a href="tel:{{ address_contact:phone | replace: ' ', '' | replace: '(0)', '' }}" class="inline-block mb-2.5 underline">{{ address_contact:phone }}</a>
+            {{ /if }}
+        </div>
+    </div>
 </footer>

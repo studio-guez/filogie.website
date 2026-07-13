@@ -14,7 +14,7 @@ Statamic 6 site for filogie.website.
 - **TLS / public routing:** handled OUTSIDE this repository by a reverse proxy installed directly on each target server (e.g. system Nginx, Caddy, or Traefik). This project only publishes the app on a loopback port; the host-level reverse proxy terminates TLS and forwards traffic to it.
 - **Frontend:** Vite + Tailwind (built in CI, baked into the production image)
 - **CI:** GitHub Actions, SQLite-backed
-- **Deploy:** GitHub Actions → build image → push to GHCR → SSH → `docker compose up -d`. Two environments: `preprod` branch → preproduction server, `main` branch → production server.
+- **Deploy:** GitHub Actions → build image → push to GHCR → self-hosted runner on target server → `docker compose up -d`. Two environments: `preprod` branch → preproduction server, `main` branch → production server.
 
 ## Local development
 
@@ -51,6 +51,28 @@ Mailpit UI: <http://localhost:8025>.
 ./vendor/bin/sail test          # phpunit
 ./vendor/bin/sail shell         # bash inside the container
 ```
+
+## Image compression (public/images)
+
+Static decorative/background images in `public/images` (parallax shapes,
+section backgrounds, etc.) are **not** served through Glide. Source files in
+that folder are assumed to already be @2x (retina) assets. A script converts
+them to WebP and generates a half-size 1x variant for use in `srcset`:
+
+```bash
+./scripts/convert-images-to-webp.sh
+```
+
+This runs directly on the host (requires ImageMagick's `convert`, not run
+inside Sail) and produces, for every `.jpg`/`.jpeg`/`.png` in `public/images`:
+
+- `<name>.webp` — 2x version (original dimensions)
+- `<name>@1x.webp` — 1x version (half width/height)
+
+Optional arguments: `./scripts/convert-images-to-webp.sh [directory] [quality]`
+(defaults: `public/images`, quality `82`). Re-run it whenever a source image
+in `public/images` is added or replaced, and commit the generated `.webp`
+files alongside it.
 
 ## File-based Statamic users and content
 
@@ -99,11 +121,19 @@ Docker, the application stack above, and the host-level reverse proxy.
 Each environment uses its own GitHub Environment (`preprod` / `production`)
 to store secrets. Production secrets are never visible to the preprod job
 and vice versa. Both deploys reuse a single build job (`build-image`) so the
-image is built once per push; only the SSH/deploy step is split per
-environment.
+image is built once per push; only the deploy step is split per environment,
+each running on a self-hosted runner registered on the corresponding server.
 
 `workflow_dispatch` accepts a `target` input (`preprod` or `production`) for
 one-off manual deploys.
+
+```bash
+# Trigger a manual deploy to preproduction
+gh workflow run ci.yml --ref preprod -f target=preprod
+
+# Trigger a manual deploy to production
+gh workflow run ci.yml --ref main -f target=production
+```
 
 ### Layout on each target server
 
@@ -121,6 +151,9 @@ $DEPLOY_PATH/                            # e.g. /srv/filogie (preprod and prod u
     ├── public/                         # host overrides for public/ files (optional)
     │   ├── robots.txt                  # shadows the git-tracked default baked into the image
     │   └── .htaccess                   # shadows the git-tracked default baked into the image
+    ├── auth/                           # optional Basic Auth (preprod only)
+    │   ├── auth.conf                   # nginx include activating auth_basic
+    │   └── .htpasswd                   # bcrypt/apr1 credentials file
     ├── current-tag.txt                 # image tag currently running
     ├── last-tag.txt                    # previous tag, for rollback
     └── backups/db-*.sqlite             # nightly DB backups
@@ -139,7 +172,7 @@ in that environment's secrets if different.
 As root on Ubuntu 24.04:
 
 ```bash
-apt update && apt install -y ca-certificates curl gnupg sqlite3 rsync
+apt update && apt install -y ca-certificates curl gnupg sqlite3 rsync python3
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
   | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
@@ -167,13 +200,88 @@ nano /srv/filogie/shared/.env
 
 # Authenticate the server to GHCR for image pulls
 echo "$GHCR_PAT" | sudo -u deploy docker login ghcr.io -u <gh-user> --password-stdin
+
+# Register the GitHub Actions self-hosted runner (repeat for each environment)
+# Download the runner package from: Settings → Actions → Runners → New self-hosted runner
+# Follow the instructions shown there, then install as a service:
+sudo ./svc.sh install deploy   # run as the deploy user
+sudo ./svc.sh start
 ```
 
-Generate an `APP_KEY` once and paste it into the environment's `.env`:
+The runner must be registered with the label matching the workflow:
+- preprod job: `self-hosted`, `filogie`, `docker`
+- production job: `self-hosted`, `filogie-prod`, `docker`
+
+Generate an `APP_KEY` once and paste it into the environment's `.env`
+(`latest` for production, `preprod` for preproduction):
 
 ```bash
-docker run --rm ghcr.io/studio-guez/filogie.website:latest \
+sudo -u deploy docker run --rm ghcr.io/studio-guez/filogie.website:<latest|preprod> \
   php artisan key:generate --show
+```
+
+### First deploy
+
+After triggering the first deploy (push to `preprod` / `main`, or via
+`gh workflow run`), the pipeline seeds `shared/.env` from `.env.example` and
+starts the stack. The app won't be fully operational until you fill in real
+values. SSH in and follow these steps:
+
+```bash
+ssh deploy@<server>
+
+# Set these once for the whole session.
+# APP_IMAGE_TAG: use "latest" on production, "preprod" on preproduction.
+export DEPLOY_PATH=<deploy_path>
+export SHARED_PATH="$DEPLOY_PATH/shared"
+export APP_IMAGE_TAG=latest          # or: preprod
+export COMPOSE_PROJECT_NAME=filogie  # or your project name
+alias dc="docker compose -f $DEPLOY_PATH/current/docker/compose/compose.prod.yaml"
+
+# 1. Create the first Statamic admin user.
+dc exec app php artisan statamic:make:user
+
+# 2. Generate APP_KEY — must use --show because the container has no writable .env.
+dc exec app php artisan key:generate --show
+# → copy the "base64:..." output
+
+# 3. Fill in the real environment values.
+#    At minimum: APP_KEY (from above), APP_URL, APP_ENV, and any mail / licence keys.
+nano "$SHARED_PATH/.env"
+
+# 4. Restart the app container so it picks up the new env.
+dc restart app
+
+# 5. Re-warm the caches (the first boot used the placeholder .env).
+dc exec app sh -c "
+    php artisan config:cache &&
+    php artisan route:cache &&
+    php artisan view:cache &&
+    php artisan event:cache &&
+    php artisan statamic:stache:warm
+  "
+
+# 6. (Preprod only — optional) Enable HTTP Basic Auth.
+#    The nginx container mounts $SHARED_PATH/auth/ into /etc/nginx/auth/ (read-only).
+#    Leave the directory empty to disable auth (nginx's glob matches nothing).
+
+# Generate the htpasswd file (openssl is always available — no extra packages needed)
+printf '%s:%s\n' "filogie" "$(openssl passwd -apr1 'your-password')" \
+  > "$SHARED_PATH/auth/.htpasswd"
+chmod 644 "$SHARED_PATH/auth/.htpasswd"
+
+# Create the nginx config that activates Basic Auth
+cat > "$SHARED_PATH/auth/auth.conf" <<'EOF'
+auth_basic "Preprod";
+auth_basic_user_file /etc/nginx/auth/.htpasswd;
+EOF
+
+# Reload nginx (no restart needed)
+dc exec nginx nginx -s reload
+
+# To disable auth later: remove the files and reload.
+# rm "$SHARED_PATH/auth/auth.conf" "$SHARED_PATH/auth/.htpasswd"
+# dc exec nginx nginx -s reload
 ```
 
 ### Host-level reverse proxy (out of scope for this repo)
@@ -194,10 +302,10 @@ If `8080` collides with something else on a given server, set
 `APP_HTTP_PORT` in that environment's shell or in `/srv/filogie/shared/.env`
 before bringing the stack up.
 
-### Manual deploy (when CI/CD SSH step is unavailable)
+### Manual deploy (when CI/CD is unavailable)
 
-If the firewall blocks the GitHub Actions runner from reaching the server directly,
-you can trigger the same sequence manually after the image has been pushed to GHCR:
+If the runner is offline or you need to deploy out-of-band, you can trigger
+the same sequence manually after the image has been pushed to GHCR:
 
 ```bash
 ssh deploy@<server>
@@ -214,7 +322,7 @@ docker compose -f docker/compose/compose.prod.yaml pull
 docker run --rm \
   --env-file "${SHARED_PATH}/.env" \
   -e RUN_MIGRATIONS=true \
-  -v "${SHARED_PATH}/database/database.sqlite:/var/www/html/database/database.sqlite" \
+  -v "${SHARED_PATH}/database:/var/www/html/database" \
   ghcr.io/studio-guez/filogie.website:${APP_IMAGE_TAG} \
   php artisan migrate --force
 
@@ -241,11 +349,12 @@ docker compose -f docker/compose/compose.prod.yaml up -d
      - `main` branch (or `v*` tag) → tags `sha-<sha7>` and `latest`
    - `deploy-preprod` runs **only** for `preprod` (uses the `preprod` GitHub Environment).
    - `deploy-production` runs **only** for `main` / `v*` (uses the `production` GitHub Environment).
-3. The chosen deploy job uploads the small compose bundle (`docker/compose/`,
-   `docker/prod/`) to its target server via SSH and extracts it into a new
-   release directory.
+3. The chosen deploy job runs directly on a self-hosted runner registered on
+   the target server. It extracts the compose bundle (`docker/compose/`,
+   `docker/prod/`, `.env.example`, `public/robots.txt`, `public/.htaccess`)
+   into a new release directory.
 4. On the target server:
-   - SQLite is backed up with `sqlite3 .backup`.
+   - SQLite is backed up online-safely via Python's built-in `sqlite3` module.
    - The new image is `docker pull`-ed.
    - `php artisan migrate --force` runs in a one-shot container against the
      shared SQLite file.
@@ -264,14 +373,10 @@ environment-appropriate values:
 
 | Secret              | Scope                 | Purpose                                                              |
 | ------------------- | --------------------- | -------------------------------------------------------------------- |
-| `SSH_HOST`          | per environment       | Target server hostname/IP                                            |
-| `SSH_USER`          | per environment       | usually `deploy`                                                     |
-| `SSH_PORT`          | per environment       | usually `22`                                                         |
-| `SSH_PRIVATE_KEY`   | per environment       | ed25519 deploy key authorised on that server only                    |
-| `SSH_KNOWN_HOSTS`   | per environment       | Pinned host key entry — run `ssh-keyscan -H <host>` to obtain it    |
-| `DEPLOY_PATH`       | per environment       | e.g. `/srv/filogie`                                                    |
-| `GHCR_PULL_TOKEN`   | per environment       | PAT with `read:packages`, used by the server to pull                 |
+| `DEPLOY_PATH`       | per environment       | e.g. `/srv/filogie`                                                  |
+| `GHCR_PULL_TOKEN`   | per environment       | PAT with `read:packages`, used by the runner to pull from GHCR      |
 | `GHCR_PULL_USER`    | per environment (opt) | GHCR username for the pull token (defaults to actor)                 |
+| `COMPOSE_PROJECT_NAME` | per environment (opt) | Docker Compose project name (defaults to `filogie`)               |
 | `COMPOSER_AUTH`     | repository (optional) | JSON for private Composer packages, used at build time               |
 
 All app secrets (`APP_KEY`, mail credentials, Statamic license, etc.) live
@@ -281,7 +386,7 @@ per environment.
 
 ### Seeding shared files
 
-The deploy workflow (`remote-deploy` action) bootstraps the shared directory
+The deploy workflow (`deploy` action) bootstraps the shared directory
 automatically on every deploy. Each step is a no-op when the target already exists:
 
 | Target on host | Source |
@@ -313,7 +418,7 @@ You can smoke-test the built image without any reverse proxy:
 
 ```bash
 docker run --rm \
-  -v $(pwd)/database/database.sqlite:/var/www/html/database/database.sqlite \
+  -v $(pwd)/database:/var/www/html/database \
   ghcr.io/studio-guez/filogie.website:latest
 ```
 
@@ -336,6 +441,39 @@ docker compose -f docker/compose/compose.prod.yaml up
 ```
 
 Then browse to <http://127.0.0.1:8080>.
+
+### Preprod HTTP Basic Auth
+
+The nginx container mounts `$SHARED_PATH/auth/` into `/etc/nginx/auth/` (read-only).
+nginx's glob `include /etc/nginx/auth/*.conf` silently matches nothing when the
+directory is empty — so production gets no auth by default.
+
+To password-protect the preprod environment, SSH into the preprod server and run once:
+
+```bash
+# 1. Generate the htpasswd file (no extra packages needed — openssl is always available)
+printf '%s:%s\n' "filogie" "$(openssl passwd -apr1 'your-password')" \
+  > /srv/filogie/shared/auth/.htpasswd
+chmod 644 /srv/filogie/shared/auth/.htpasswd
+
+# 2. Create the nginx config that activates Basic Auth
+cat > /srv/filogie/shared/auth/auth.conf <<'EOF'
+auth_basic "Preprod";
+auth_basic_user_file /etc/nginx/auth/.htpasswd;
+EOF
+
+# 3. Reload nginx (no restart needed)
+docker compose -f /srv/filogie/current/docker/compose/compose.prod.yaml exec nginx nginx -s reload
+```
+
+To **disable** auth: remove the files and reload.
+```bash
+rm /srv/filogie/shared/auth/auth.conf /srv/filogie/shared/auth/.htpasswd
+docker compose -f /srv/filogie/current/docker/compose/compose.prod.yaml exec nginx nginx -s reload
+```
+
+The `.htpasswd` and `auth.conf` files persist across deploys (they live in `shared/auth/`,
+outside any release directory) and require no image rebuild.
 
 ### Rollback
 
@@ -384,6 +522,8 @@ off-site choice).
 | Stale opcache                 | The container is replaced every deploy; if you see staleness anyway, restart `app`.                                |
 | `docker pull` fails on server | Re-authenticate to GHCR: `echo $PAT \| docker login ghcr.io -u <user> --password-stdin`                            |
 | Lost CP-edited users/content  | Check that the content sub-dirs (`collections/pages`, `globals/fr`, `trees/collections`) and `users/` are bind-mounted on the host and owned by UID 1000. |
+| Frontend pages all return 404, CP works fine | The app is behind a TLS-terminating reverse proxy but `TRUSTED_PROXIES` is not wired up. Laravel ignores `X-Forwarded-Proto` and sees all requests as plain HTTP, causing Statamic's frontend URL matching to break while CP controller routes keep working. Fix: ensure `$SHARED_PATH/.env` contains `TRUSTED_PROXIES=*` (and `FORCE_HTTPS=true` for HTTPS sites). `bootstrap/app.php` reads `TRUSTED_PROXIES` and `AppServiceProvider` reads `FORCE_HTTPS` — both must be set. Restart and re-warm: `dc restart app && dc exec app php artisan config:cache`. |
+| Mixed-content errors (CSS/JS loaded over `http://` on an `https://` page) | Set `FORCE_HTTPS=true` in `$SHARED_PATH/.env`. `AppServiceProvider` calls `URL::forceScheme('https')` when this flag is set. Also ensure `TRUSTED_PROXIES=*` is set so that `request()->isSecure()` correctly returns `true` for proxied HTTPS requests. After editing the file restart the app and re-warm the config cache: `dc restart app && dc exec app php artisan config:cache`. |
 
 ## Repository layout
 
@@ -399,7 +539,7 @@ off-site choice).
 ├── compose.yaml            # Laravel Sail (local dev only)
 ├── .github/
 │   ├── actions/
-│   │   └── remote-deploy/  # composite action: SSH + deploy a built image
+│   │   └── deploy/         # composite action: deploy a built image on a self-hosted runner
 │   └── workflows/
 │       ├── ci.yml
 │       └── deploy.yml      # build once, then deploy-preprod OR deploy-production

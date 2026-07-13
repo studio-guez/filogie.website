@@ -61,6 +61,14 @@ return [
             // 'visibility' => 'public', // https://statamic.dev/assets#container-visibility
         ],
 
+        'assets' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/assets'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage/assets',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'favicons' => [
             'driver' => 'local',
             'root' => storage_path('app/public/favicons'),
@@ -69,10 +77,42 @@ return [
             'throw' => false,
         ],
 
-        'assets' => [
+        'titles' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/assets'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage/assets',
+            'root' => storage_path('app/public/titles'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage/titles',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'actions' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/actions'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage/actions',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'og' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/og'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage/og',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'news' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/news'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage/news',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'logos' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/logos'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage/logos',
             'visibility' => 'public',
             'throw' => false,
         ],

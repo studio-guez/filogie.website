@@ -1,0 +1,76 @@
+title: Action
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+          -
+            handle: overtitle
+            field:
+              type: text
+              display: Sur-titre
+          -
+            handle: description
+            field:
+              buttons:
+                - anchor
+                - underline
+                - strikethrough
+                - superscript
+                - subscript
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+                - removeformat
+              remove_empty_nodes: trim
+              type: bard
+              display: Description
+              validate:
+                - required
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: featured_image
+            field:
+              container: actions
+              restrict: true
+              max_files: 1
+              min_files: 1
+              type: assets
+              display: 'Image à la une'
+              validate:
+                - required
+                - 'mimes:jpg,jpeg,png,svg,webp'
+      -
+        fields:
+          -
+            handle: actions_types
+            field:
+              type: terms
+              taxonomies:
+                - actions_types
+              display: "Types d'actions"
+              mode: select
+              max_items: 1
+              validate:
+                - required
+          -
+            handle: date
+            field:
+              type: date
+              required: true
+              default: now
+              validate:
+                - required

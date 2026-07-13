@@ -1,5 +1,14 @@
 title: Actualités
+icon: collections
+template: '@blueprint'
+layout: layout
+taxonomies:
+  - news_types
 revisions: false
-date_behavior:
-  past: public
-  future: private
+slugs: false
+date: true
+sort_dir: asc
+preview_targets:
+  - label: Entry
+    url: '{permalink}'
+    refresh: true

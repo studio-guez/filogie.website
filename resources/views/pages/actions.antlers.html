@@ -1,0 +1,33 @@
+<section class="px-base pt-30 pb-10" x-data="{ activeFilter: null }">
+    <h1 class="sr-only">{{ title }}</h1>
+    <div class="flex flex-wrap justify-center gap-2.5">
+        {{ taxonomy:actions_types }}
+        <button
+            type="button"
+            @click="activeFilter = activeFilter === '{{ slug }}' ? null : '{{ slug }}'"
+            :class="activeFilter !== null && activeFilter !== '{{ slug }}' && 'opacity-30'"
+            class="font-bold leading-none rounded-full py-2 px-5 trim-text mb-2.5 w-fit transition-opacity duration-300 cursor-pointer text-actions-{{ color_slug }} bg-actions-{{ color_slug }}-bg hover:opacity-100"
+        >{{ title }}<span x-show="activeFilter === '{{ slug }}'" class="ml-1.5 font-bold" x-cloak>&times;</span></button>
+        {{ /taxonomy:actions_types }}
+    </div>
+    {{ collection:actions sort="date:desc" }}
+            <hr class="my-10" x-show="activeFilter === null {{ actions_types }}|| activeFilter === '{{ slug }}'{{ /actions_types }}">
+            <article class="col-span-6 lg:col-span-3" x-show="activeFilter === null {{ actions_types }}|| activeFilter === '{{ slug }}'{{ /actions_types }}">
+                <div class="aspect-3/1 w-full mb-7.5">
+                    {{ partial:asset :image="featured_image:id" :alt_glide="featured_image:_alt" class="w-full h-full object-cover rounded-lg" preset="half" }}
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-5">
+                    <div>
+                        {{ actions_types }}
+                        <div class="text-actions-{{ color_slug }} bg-actions-{{ color_slug }}-bg leading-none rounded-full py-1.5 px-3 trim-text mb-5 w-fit">{{ title }}</div>
+                        {{ /actions_types }}
+                        {{ if overtitle }}
+                        <div class="text-body-lg mb-5">{{ overtitle }}</div>
+                        {{ /if }}
+                        <h2 class="font-bold text-body-lg max-lg:mb-5">{{ title }}</h2>
+                    </div>
+                    <div class="bard">{{ description }}</div>
+                </div>
+            </article>
+    {{ /collection:actions }}
+</section>
