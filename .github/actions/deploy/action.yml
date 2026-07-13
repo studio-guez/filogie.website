@@ -163,6 +163,17 @@ runs:
           -f "$CURRENT/docker/compose/compose.prod.yaml" \
           up -d --remove-orphans
 
+        # Re-apply group-write after the app has had a chance to create
+        # runtime directories (statamic stache, storage sub-dirs, etc.).
+        # Without this, directories created by the container with the default
+        # umask (022) end up as 755 and block rsync / manual syncs run as a
+        # user in the www-data group.
+        docker run --rm \
+          -v "$SHARED_DIR:/shared" \
+          --user root \
+          "$IMAGE_REF" \
+          sh -c "chmod -R g+w /shared/storage /shared/content /shared/users /shared/auth"
+
         # Post-boot cache warm
         COMPOSE_PROJECT_NAME="$COMPOSE_PROJECT_NAME" \
         APP_IMAGE_TAG="$IMAGE_TAG" \
