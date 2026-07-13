@@ -20,29 +20,66 @@ Alpine.data('parallaxStack', () => ({
 	viewportWidth: 0,
 	viewportHeight: 0,
 	rafId: null,
+	lastTime: 0,
+	layers: [],
 
 	init() {
 		this.viewportWidth = window.innerWidth;
 		this.viewportHeight = window.innerHeight;
+		// Cache each parallax layer with its speed so the render loop never has to
+		// touch Alpine reactivity or the DOM to discover what to move.
+		this.layers = Array.from(this.$el.querySelectorAll('[data-speed]')).map((el) => ({
+			el,
+			speed: parseFloat(el.dataset.speed) || 0,
+			rendered: null,
+		}));
 		this.measure();
 		this.progress = this.target;
+		this.render();
 		window.addEventListener('resize', () => this.handleResize());
 		lenis.on('scroll', () => this.updateTarget());
-		this.rafId = requestAnimationFrame(() => this.tick());
+		this.rafId = requestAnimationFrame((time) => this.tick(time));
 	},
 
 	destroy() {
 		cancelAnimationFrame(this.rafId);
 	},
 
-	tick() {
+	tick(time) {
 		// Ease the rendered progress toward the scroll-driven target every frame
 		// instead of snapping straight to the scroll position, for a smoother,
 		// slightly lagging parallax feel.
-		const ease = 0.5;
+		//
+		// The smoothing is frame-rate independent: on mobile, frames are dropped
+		// far more often than on desktop, and a fixed per-frame ease would make
+		// each surviving frame jump further, which is what caused the juddering.
+		// Scaling by the elapsed time keeps the motion identical regardless of
+		// how many frames actually render.
+		const last = this.lastTime || time;
+		const dt = Math.min(time - last, 100); // clamp big gaps (tab blur, etc.)
+		this.lastTime = time;
+
+		const ease = 1 - Math.pow(1 - 0.5, dt / 16.6667);
 		const delta = this.target - this.progress;
 		this.progress += Math.abs(delta) < 0.01 ? delta : delta * ease;
-		this.rafId = requestAnimationFrame(() => this.tick());
+
+		this.render();
+		this.rafId = requestAnimationFrame((t) => this.tick(t));
+	},
+
+	render() {
+		// Write transforms straight to the DOM from inside the rAF loop rather
+		// than going through Alpine's `x-effect` reactivity, which flushes on a
+		// microtask queue that isn't synced to the frame and stutters on mobile.
+		// translate3d keeps every layer on its own compositor layer.
+		for (const layer of this.layers) {
+			const y = Math.round(-this.progress * layer.speed * 100) / 100;
+			if (y === layer.rendered) {
+				continue;
+			}
+			layer.rendered = y;
+			layer.el.style.transform = `translate3d(0, ${y}px, 0)`;
+		}
 	},
 
 	handleResize() {
@@ -75,12 +112,6 @@ Alpine.data('parallaxStack', () => ({
 		const bottom = this.top + this.height + endBuffer;
 		const viewportBottom = window.scrollY + this.viewportHeight;
 		this.target = Math.min(this.height + endBuffer, Math.max(0, bottom - viewportBottom));
-	},
-
-	offset(speed) {
-		// Always <= 0: layers start higher and ease down, all converging on their
-		// bottom-0 rest position (fully stacked) at the same scroll point.
-		return -this.progress * parseFloat(speed);
 	},
 }));
 
