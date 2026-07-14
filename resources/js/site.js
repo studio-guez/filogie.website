@@ -12,7 +12,8 @@ function raf(time) {
 }
 requestAnimationFrame(raf);
 
-Alpine.data('parallaxStack', () => ({
+Alpine.data('parallaxStack', (reverse = false) => ({
+	reverse,
 	progress: 0,
 	target: 0,
 	top: 0,
@@ -73,7 +74,8 @@ Alpine.data('parallaxStack', () => ({
 		// microtask queue that isn't synced to the frame and stutters on mobile.
 		// translate3d keeps every layer on its own compositor layer.
 		for (const layer of this.layers) {
-			const y = Math.round(-this.progress * layer.speed * 100) / 100;
+			const sign = this.reverse ? 1 : -1;
+			const y = Math.round(sign * this.progress * layer.speed * 100) / 100;
 			if (y === layer.rendered) {
 				continue;
 			}
