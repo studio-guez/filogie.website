@@ -179,6 +179,7 @@ runs:
         APP_IMAGE_TAG="$IMAGE_TAG" \
         SHARED_PATH="$SHARED_DIR" \
         docker compose -f "$CURRENT/docker/compose/compose.prod.yaml" exec -T app sh -c "
+          php artisan statamic:static:clear && \
           php artisan config:cache && \
           php artisan route:cache && \
           php artisan view:cache && \
