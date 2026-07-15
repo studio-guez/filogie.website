@@ -15,13 +15,11 @@ requestAnimationFrame(raf);
 Alpine.data('parallaxStack', (reverse = false) => ({
 	reverse,
 	progress: 0,
-	target: 0,
 	top: 0,
 	height: 0,
 	viewportWidth: 0,
 	viewportHeight: 0,
 	rafId: null,
-	lastTime: 0,
 	layers: [],
 
 	init() {
@@ -35,37 +33,26 @@ Alpine.data('parallaxStack', (reverse = false) => ({
 			rendered: null,
 		}));
 		this.measure();
-		this.progress = this.target;
 		this.render();
 		window.addEventListener('resize', () => this.handleResize());
-		lenis.on('scroll', () => this.updateTarget());
-		this.rafId = requestAnimationFrame((time) => this.tick(time));
+		this.rafId = requestAnimationFrame(() => this.tick());
 	},
 
 	destroy() {
 		cancelAnimationFrame(this.rafId);
 	},
 
-	tick(time) {
-		// Ease the rendered progress toward the scroll-driven target every frame
-		// instead of snapping straight to the scroll position, for a smoother,
-		// slightly lagging parallax feel.
-		//
-		// The smoothing is frame-rate independent: on mobile, frames are dropped
-		// far more often than on desktop, and a fixed per-frame ease would make
-		// each surviving frame jump further, which is what caused the juddering.
-		// Scaling by the elapsed time keeps the motion identical regardless of
-		// how many frames actually render.
-		const last = this.lastTime || time;
-		const dt = Math.min(time - last, 100); // clamp big gaps (tab blur, etc.)
-		this.lastTime = time;
-
-		const ease = 1 - Math.pow(1 - 0.5, dt / 16.6667);
-		const delta = this.target - this.progress;
-		this.progress += Math.abs(delta) < 0.01 ? delta : delta * ease;
-
+	tick() {
+		// Re-read the scroll position on every single frame instead of listening
+		// to scroll events. On mobile, scroll events (native or Lenis-relayed)
+		// arrive in bursts that don't line up with the compositor's frames, so an
+		// event-driven target skips values and the layers visibly jump. Polling
+		// window.scrollY inside rAF samples the real scroll offset once per
+		// rendered frame, and applying it 1:1 (no easing/lerp) keeps every layer
+		// locked to the finger with no inertia.
+		this.updateProgress();
 		this.render();
-		this.rafId = requestAnimationFrame((t) => this.tick(t));
+		this.rafId = requestAnimationFrame(() => this.tick());
 	},
 
 	render() {
@@ -101,19 +88,19 @@ Alpine.data('parallaxStack', (reverse = false) => ({
 		const rect = this.$el.getBoundingClientRect();
 		this.top = rect.top + window.scrollY;
 		this.height = rect.height;
-		this.updateTarget();
+		this.updateProgress();
 	},
 
-	updateTarget() {
+	updateProgress() {
 		// Distance left before the section's bottom edge reaches the bottom of the
-		// viewport, plus an extra buffer so the anim keeps settling for a bit
+		// viewport, plus an extra buffer so the layers keep moving for a bit
 		// longer after the section's bottom is fully on screen.
 		// Uses the cached viewportHeight (not the live window.innerHeight) so the
 		// mobile address bar showing/hiding mid-scroll doesn't shift the offset.
 		const endBuffer = 200;
 		const bottom = this.top + this.height + endBuffer;
 		const viewportBottom = window.scrollY + this.viewportHeight;
-		this.target = Math.min(this.height + endBuffer, Math.max(0, bottom - viewportBottom));
+		this.progress = Math.min(this.height + endBuffer, Math.max(0, bottom - viewportBottom));
 	},
 }));
 
