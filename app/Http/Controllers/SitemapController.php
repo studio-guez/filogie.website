@@ -22,7 +22,7 @@ class SitemapController extends Controller
     {
         $site = Site::get($locale);
 
-        if (!$site) {
+        if (! $site) {
             abort(404);
         }
 
@@ -32,7 +32,7 @@ class SitemapController extends Controller
             ->whereStatus('published')
             ->get()
             // Collections without a route produce entries with no URL.
-            ->filter(fn($entry) => filled($entry->absoluteUrl()));
+            ->filter(fn ($entry) => filled($entry->absoluteUrl()));
 
         $content = view('sitemaps.locale', [
             'entries' => $entries,
