@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2aed064af326901738f9f5d1a225b0ba",
+    "content-hash": "03ef636db545e47564be07914558ddc5",
     "packages": [
         {
             "name": "ajthinking/archetype",
@@ -3833,54 +3833,6 @@
             "time": "2026-01-25T14:56:51+00:00"
         },
         {
-            "name": "pixelfear/composer-dist-plugin",
-            "version": "v0.1.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pixelfear/composer-dist-plugin.git",
-                "reference": "40cd101208c975fd14e5f3b5b0710cf6cd0084d5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pixelfear/composer-dist-plugin/zipball/40cd101208c975fd14e5f3b5b0710cf6cd0084d5",
-                "reference": "40cd101208c975fd14e5f3b5b0710cf6cd0084d5",
-                "shasum": ""
-            },
-            "require": {
-                "composer-plugin-api": "^1.1 || ^2.0"
-            },
-            "require-dev": {
-                "composer/composer": "^1.10",
-                "mockery/mockery": "^1.3",
-                "phpunit/phpunit": "^8.4"
-            },
-            "type": "composer-plugin",
-            "extra": {
-                "class": "Pixelfear\\ComposerDistPlugin\\Plugin"
-            },
-            "autoload": {
-                "psr-4": {
-                    "Pixelfear\\ComposerDistPlugin\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Downloads distributable assets to be used in packages so you don't have to commit them.",
-            "support": {
-                "issues": "https://github.com/pixelfear/composer-dist-plugin/issues",
-                "source": "https://github.com/pixelfear/composer-dist-plugin/tree/v0.1.6"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/jasonvarga",
-                    "type": "github"
-                }
-            ],
-            "time": "2021-05-24T14:05:38+00:00"
-        },
-        {
             "name": "pragmarx/google2fa",
             "version": "v9.0.0",
             "source": {
@@ -5237,16 +5189,16 @@
         },
         {
             "name": "statamic/cms",
-            "version": "v6.21.0",
+            "version": "v6.27.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statamic/cms.git",
-                "reference": "f9f67d079f5e3ad754f14dbea94e957c9873b5c9"
+                "reference": "7a4f419812b46995964755768fa560f7eb2c7809"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statamic/cms/zipball/f9f67d079f5e3ad754f14dbea94e957c9873b5c9",
-                "reference": "f9f67d079f5e3ad754f14dbea94e957c9873b5c9",
+                "url": "https://api.github.com/repos/statamic/cms/zipball/7a4f419812b46995964755768fa560f7eb2c7809",
+                "reference": "7a4f419812b46995964755768fa560f7eb2c7809",
                 "shasum": ""
             },
             "require": {
@@ -5256,16 +5208,16 @@
                 "ext-json": "*",
                 "guzzlehttp/guzzle": "^6.3 || ^7.0",
                 "inertiajs/inertia-laravel": "^2.0",
+                "intervention/image": "^3.9.1 || ^4.0",
                 "james-heinrich/getid3": "^1.9.21",
                 "laravel/framework": "^12.40.0 || ^13.0",
                 "laravel/prompts": "^0.3.0",
                 "league/commonmark": "^2.2",
                 "league/csv": "^9.1",
-                "league/glide": "^3.0",
+                "league/glide": "^3.0 || ^4.0",
                 "maennchen/zipstream-php": "^3.1",
                 "michelf/php-smartypants": "^1.8.1",
                 "nesbot/carbon": "^3.0",
-                "pixelfear/composer-dist-plugin": "^0.1.4",
                 "pragmarx/google2fa": "^8.0 || ^9.0",
                 "rebing/graphql-laravel": "^9.15",
                 "rhukster/dom-sanitizer": "^1.0.10",
@@ -5290,10 +5242,15 @@
                 "doctrine/dbal": "^3.6",
                 "fakerphp/faker": "~1.10",
                 "google/cloud-translate": "^1.6",
+                "larastan/larastan": "^3.10",
+                "laravel/pao": "^1.1",
                 "laravel/pint": "1.16.0",
+                "laravel/socialite": "^5.28",
                 "mockery/mockery": "^1.6.10",
                 "orchestra/testbench": "^10.8 || ^11.0",
-                "phpunit/phpunit": "^11.5.3",
+                "pestphp/pest": "^4.7",
+                "phpstan/phpstan": "^2.2",
+                "phpunit/phpunit": "^12.5.23",
                 "spatie/laravel-ray": "^1.43.6"
             },
             "suggest": {
@@ -5308,25 +5265,7 @@
                     "providers": [
                         "Statamic\\Providers\\StatamicServiceProvider"
                     ]
-                },
-                "download-dist": [
-                    {
-                        "url": "https://github.com/statamic/cms/releases/download/{$version}/dist.tar.gz",
-                        "path": "resources/dist"
-                    },
-                    {
-                        "url": "https://github.com/statamic/cms/releases/download/{$version}/dist-dev.tar.gz",
-                        "path": "resources/dist-dev"
-                    },
-                    {
-                        "url": "https://github.com/statamic/cms/releases/download/{$version}/dist-frontend.tar.gz",
-                        "path": "resources/dist-frontend"
-                    },
-                    {
-                        "url": "https://github.com/statamic/cms/releases/download/{$version}/dist-package.tar.gz",
-                        "path": "resources/dist-package"
-                    }
-                ]
+                }
             },
             "autoload": {
                 "files": [
@@ -5358,7 +5297,7 @@
             ],
             "support": {
                 "issues": "https://github.com/statamic/cms/issues",
-                "source": "https://github.com/statamic/cms/tree/v6.21.0"
+                "source": "https://github.com/statamic/cms/tree/v6.27.2"
             },
             "funding": [
                 {
@@ -5366,7 +5305,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-06-10T20:51:29+00:00"
+            "time": "2026-08-12T21:15:11+00:00"
         },
         {
             "name": "statamic/stringy",
