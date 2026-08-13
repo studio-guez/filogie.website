@@ -99,7 +99,7 @@
 <section class="px-base pt-10 relative">
     <h2 class="col-span-full mb-10">{{ partial:asset :image="news_image_title:id" :alt_glide="news_image_title:_alt" class="w-full h-full object-cover" preset="full" }}</h2>
     <div class="grid grid-cols-8 gap-x-5 gap-y-10">
-        {{ collection:news limit="2" sort="date:desc" }}
+        {{ collection:news limit="2" }}
         <article class="col-span-full lg:col-span-3">
             {{ if youtube_link }}
             <div class="aspect-video w-full mb-5">
