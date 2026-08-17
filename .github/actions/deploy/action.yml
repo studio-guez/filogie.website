@@ -195,7 +195,7 @@ runs:
         # eventually fill the disk. Keep the 5 most recent images (newest first,
         # which includes the one just deployed) so rollbacks stay possible.
         docker images "ghcr.io/${REPO}" --format '{{.Tag}}' \
-          | grep -vx '<none>' \
+          | { grep -vx '<none>' || true; } \
           | tail -n +6 \
           | while read -r tag; do
               docker rmi "ghcr.io/${REPO}:$tag" 2>/dev/null || true
