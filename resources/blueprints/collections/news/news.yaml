@@ -52,6 +52,17 @@ tabs:
       -
         fields:
           -
+            handle: slug
+            field:
+              type: slug
+              from: title
+              instructions: "Utilisé pour le lien d'ancrage depuis la page d'accueil."
+              validate:
+                - required
+                - 'max:200'
+      -
+        fields:
+          -
             handle: media
             field:
               inline_label: Non

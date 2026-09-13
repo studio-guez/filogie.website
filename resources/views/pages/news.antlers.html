@@ -2,7 +2,7 @@
     <div class="container-content">
         <h1 class="mb-30">{{ partial:asset :image="image_title_h1:id" :alt_glide="image_title_h1:_alt" class="w-full h-full object-cover" preset="full" }}</h1>
         {{ collection:news }}
-                <article id="{{ id }}" class="col-span-6 lg:col-span-3 scroll-mt-30 lg:scroll-mt-45">
+                <article id="{{ slug }}" class="col-span-6 lg:col-span-3 scroll-mt-30 lg:scroll-mt-45">
                     <div class="flex items-start lg:items-center justify-between max-lg:flex-col gap-2.5 mb-5">
                         <div class="flex items-center gap-2.5">
                             {{ news_types }}
