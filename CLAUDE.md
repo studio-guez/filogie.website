@@ -39,7 +39,7 @@ So a schema change (blueprint) is a code change and ships with the image; conten
 ### Collections and routing
 
 - `pages` — the only routed collection (`{parent_uri}/{slug}`, structured tree). Each page picks a blueprint (`home`, `about_us`, `actions`, `news`, `page`); `template: '@blueprint'` means the blueprint handle selects `resources/views/pages/<handle>.antlers.html`. All pull SEO fields from the `seo_base` fieldset.
-- `actions` and `news` — **no route, no slugs, no own URLs**. They are dated entries rendered inline on the `nos-actions` / `diffusion` pages via `{{ collection:actions }}` / `{{ collection:news }}`, each tagged with a taxonomy (`actions_types`, `news_types`). Anchors use the entry `id`.
+- `actions` and `news` — **no route, no own URLs**. They are dated entries rendered inline on the `nos-actions` / `diffusion` pages via `{{ collection:actions }}` / `{{ collection:news }}`, each tagged with a taxonomy (`actions_types`, `news_types`). Anchors (`#slug`, linked from the home page) use the entry slug, which is generated from the title. `php artisan filogie:migrate-slugs` backfills a title-based slug on legacy entries whose slug is still their id (content is rsynced to servers, not migrated on deploy).
 - Sitemap is custom (`routes/web.php` → `SitemapController` → `resources/views/sitemaps/*.blade.php`) and only lists `pages` entries because the other collections have no URLs.
 
 ### Templates

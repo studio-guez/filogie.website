@@ -5,7 +5,6 @@ layout: layout
 taxonomies:
   - news_types
 revisions: false
-slugs: false
 date: true
 sort_dir: asc
 preview_targets:
