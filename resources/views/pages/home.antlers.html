@@ -1,6 +1,6 @@
 <div class="relative pt-24.25 -mt-24.25 lg:pt-39.25 lg:-mt-41.75">
     <section class="container-content pt-30 grid grid-cols-8 gap-x-5">
-        <div class="font-bold text-body-lg col-start-1 md:col-start-2 lg:col-start-3 xl:col-start-4 col-end-9 bard">
+        <div class="font-semibold text-xl sm:text-2xl col-start-1 md:col-start-2 lg:col-start-3 xl:col-start-4 col-end-9 bard">
             {{ intro }}
         </div>
     </section>
@@ -8,9 +8,9 @@
         <h2 class="col-span-full mb-10">{{ partial:asset :image="missions_image_title:id" :alt_glide="missions_image_title:_alt" class="w-full h-full object-cover" preset="full" }}</h2>
         <div class="text-body-lg col-start-1 md:col-start-2 lg:col-start-3 xl:col-start-4 col-end-9">
         {{ taxonomy:actions_types }}
-        <div class="not-last:mb-10">
+        <div class="not-last:mb-20 ">
             <h3 class="font-bold text-actions-{{ color_slug }} bg-actions-{{ color_slug }}-bg leading-none rounded-full py-2 px-5 trim-text mb-2.5 w-fit">{{ title }}</h3>
-            <div class="bard">
+            <div class="bard text-base sm:text-lg max-w-140">
                 {{ description }}
             </div>
         </div>
