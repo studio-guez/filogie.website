@@ -10,6 +10,9 @@
 @theme {
     --font-sans: 'Rauschen-B', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
+    --container-main: 94.5rem;
+    --container-content: 75rem;
+
     --color-black: #000000;
     --color-white: #FFFFFF;
     --color-yellow: #FDFB06;
@@ -29,6 +32,13 @@
     --color-principles-6: #FEA642;
 }
 
+:root {
+    /* One percent of the main container's width. Tracks `1vw` until the
+       container hits its 1512px cap, so viewport-relative bleed offsets stop
+       growing once the white side gutters appear. */
+    --cw: min(1vw, 15.12px);
+}
+
 [x-cloak] {
     display: none !important;
 }
@@ -36,6 +46,12 @@
 @layer utilities {
     .px-base {
         @apply px-5 sm:px-7.5 lg:px-10;
+    }
+    .container-main {
+        @apply w-full max-w-main mx-auto overflow-x-clip isolate;
+    }
+    .container-content {
+        @apply w-full max-w-content mx-auto px-5 sm:px-7.5 lg:px-10;
     }
     .text-title-lg{
         @apply text-2xl sm:text-3xl lg:text-5xl xl:text-7xl 2xl:text-9xl;

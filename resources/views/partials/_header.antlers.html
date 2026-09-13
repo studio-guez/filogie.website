@@ -1,8 +1,10 @@
-<div class="px-base mb-0 md:mb-[-4vw] pt-5 z-2 relative pointer-events-none">
-    {{ partial:asset :image="global_site:logo_full:id" :alt_glide="global_site:logo_full:_alt" class="w-full" preset="full" }}
+<div class="mb-0 md:mb-[calc(-4*var(--cw))] pt-5 z-2 relative pointer-events-none">
+    <div class="container-content">
+        {{ partial:asset :image="global_site:logo_full:id" :alt_glide="global_site:logo_full:_alt" class="w-full" preset="full" }}
+    </div>
 </div>
-<header class="px-base sticky top-0 pt-5 z-1 transition-colors duration-300" x-data="{ isOpen: false, isSticky: false, showMonogram: false, updateScroll() { const top = document.querySelector('main').getBoundingClientRect().top; this.isSticky = top < -50; this.showMonogram = top < 0; } }" x-init="updateScroll()" @scroll.window="updateScroll()" @resize.window="updateScroll()" :class="{ 'bg-white/90': isSticky }">
-    <div class="relative">
+<header class="sticky top-0 pt-5 z-1 transition-colors duration-300" x-data="{ isOpen: false, isSticky: false, showMonogram: false, updateScroll() { const top = document.querySelector('main').getBoundingClientRect().top; this.isSticky = top < -50; this.showMonogram = top < 0; } }" x-init="updateScroll()" @scroll.window="updateScroll()" @resize.window="updateScroll()" :class="{ 'bg-white/90': isSticky }">
+    <div class="container-content relative">
         <div class="flex items-center gap-5 justify-between">
             {{ if is_homepage }}
             <h1 class="max-w-100 sm:max-w-120 lg:max-w-lg"><a href="/">{{ global_site:legal_name }}</a></h1>
