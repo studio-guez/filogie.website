@@ -36,6 +36,16 @@ tabs:
               display: Description
               validate:
                 - required
+          -
+            handle: short_description
+            field:
+              type: textarea
+              display: 'Description courte'
+              instructions: "Affichée sur la page d'accueil (200 caractères max)."
+              character_limit: 200
+              validate:
+                - required
+                - 'max:200'
   sidebar:
     display: Sidebar
     sections:

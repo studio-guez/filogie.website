@@ -12,7 +12,7 @@
     </div>
     {{ collection:actions sort="date:desc" }}
             <hr class="my-10" x-show="activeFilter === null {{ actions_types }}|| activeFilter === '{{ slug }}'{{ /actions_types }}">
-            <article class="col-span-6 lg:col-span-3" x-show="activeFilter === null {{ actions_types }}|| activeFilter === '{{ slug }}'{{ /actions_types }}">
+            <article id="{{ id }}" class="col-span-6 lg:col-span-3 scroll-mt-30 lg:scroll-mt-45" x-show="activeFilter === null {{ actions_types }}|| activeFilter === '{{ slug }}'{{ /actions_types }}">
                 <div class="aspect-3/1 w-full mb-7.5">
                     {{ partial:asset :image="featured_image:id" :alt_glide="featured_image:_alt" class="w-full h-full object-cover rounded-lg" preset="half" }}
                 </div>

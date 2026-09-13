@@ -75,7 +75,10 @@
                 <div class="text-actions-{{ color_slug }} bg-actions-{{ color_slug }}-bg leading-none rounded-full py-1.5 px-3 trim-text mb-5 w-fit">{{ title }}</div>
                 {{ /actions_types }}
                 <h3 class="font-bold text-body-lg mb-5">{{ title }}</h3>
-                <div class="line-clamp-4">{{ description }}</div>
+                <p class="mb-2.5">{{ short_description }}</p>
+                <div class="text-right">
+                    <a href="{{ collection:pages blueprint:is="actions" limit="1" }}{{ url }}{{ /collection:pages }}#{{ id }}" class="font-bold underline hover:opacity-70 transition-opacity duration-300">En savoir plus →</a>
+                </div>
             </article>
         {{ /collection:actions }}
         </div>
@@ -117,7 +120,10 @@
                 <div class="font-bold mb-5">{{ overtitle }}</div>
                 {{ /if }}
                 <h3 class="font-bold text-body-lg mb-5">{{ title }}</h3>
-                <div class="line-clamp-4">{{ description }}</div>
+                <p class="mb-2.5">{{ short_description }}</p>
+                <div class="text-right">
+                    <a href="{{ collection:pages blueprint:is="news" limit="1" }}{{ url }}{{ /collection:pages }}#{{ id }}" class="font-bold underline hover:opacity-70 transition-opacity duration-300">En savoir plus →</a>
+                </div>
             </article>
             {{ /collection:news }}
             <div class="font-bold text-body-lg col-span-full lg:col-span-2 flex justify-end">
