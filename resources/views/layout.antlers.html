@@ -132,11 +132,13 @@
 
         {{ yield:structured_data }}
     </head>
-    <body class="font-sans text-body-md text-black{{ if blueprint.handle == 'page' }} bg-yellow{{ else }} bg-white{{ /if }}">
-        {{ partial:header }}
-        <main>
-            {{ template_content }}
-        </main>
-        {{ partial:footer }}
+    <body class="font-sans text-body-md text-black bg-white">
+        <div class="container-main{{ if blueprint.handle == 'page' }} bg-yellow{{ else }} bg-white{{ /if }}">
+            {{ partial:header }}
+            <main>
+                {{ template_content }}
+            </main>
+            {{ partial:footer }}
+        </div>
     </body>
 </html>

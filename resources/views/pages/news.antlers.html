@@ -1,47 +1,49 @@
-<section class="px-base pb-10 relative pt-54.25 -mt-24.25 lg:pt-69.25 lg:-mt-41.75">
-    <h1 class="mb-30">{{ partial:asset :image="image_title_h1:id" :alt_glide="image_title_h1:_alt" class="w-full h-full object-cover" preset="full" }}</h1>
-    {{ collection:news }}
-            <article class="col-span-6 lg:col-span-3">
-                <div class="flex items-start lg:items-center justify-between max-lg:flex-col gap-2.5 mb-5">
-                    <div class="flex items-center gap-2.5">
-                        {{ news_types }}
-                        <div class="border leading-none rounded-full py-1.5 px-3 trim-text w-fit">{{ title }}</div>
-                        {{ /news_types }}
-                    </div>
-                    <div class="border leading-none rounded-full py-1.5 px-3 trim-text w-fit">
-                        {{ date | format="d.m.Y" }}{{ if end_date }}-{{ end_date | format="d.m.Y" }}{{ /if }}
-                    </div>
-                </div>
-                {{ if youtube_link }}
-                <div class="aspect-video w-full mb-7.5">
-                    <iframe class="w-full h-full rounded-lg" src="{{ youtube_link | embed_url }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </div>
-                {{ else }}
-                <div class="aspect-video w-full mb-7.5">
-                    {{ partial:asset :image="featured_image:id" :alt_glide="featured_image:_alt" class="w-full h-full object-cover rounded-lg" preset="half" }}
-                </div>
-                {{ /if }}
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-5">
-                    <div>
-                        {{ if overtitle }}
-                        <div class="text-body-lg mb-5">{{ overtitle }}</div>
-                        {{ /if }}
-                        <h2 class="font-bold text-body-lg max-lg:mb-5">{{ title }}</h2>
-                    </div>
-                    <div>
-                        <div class="bard">{{ description }}</div>
-                        {{ if external_link }}
-                        <div class="mt-5 text-right">
-                        <a href="{{ external_link }}" target="_blank" rel="noopener noreferrer" class="font-bold text-body-lg underline hover:opacity-70 transition-opacity duration-300">{{ external_link_text ?? external_link | replace('http://', '') | replace('https://', '') | regex_replace('\?.*', '') }} →</a>
+<section class="pb-10 relative pt-54.25 -mt-24.25 lg:pt-69.25 lg:-mt-41.75">
+    <div class="container-content">
+        <h1 class="mb-30">{{ partial:asset :image="image_title_h1:id" :alt_glide="image_title_h1:_alt" class="w-full h-full object-cover" preset="full" }}</h1>
+        {{ collection:news }}
+                <article id="{{ slug }}" class="col-span-6 lg:col-span-3 scroll-mt-30 lg:scroll-mt-45">
+                    <div class="flex items-start lg:items-center justify-between max-lg:flex-col gap-2.5 mb-5">
+                        <div class="flex items-center gap-2.5">
+                            {{ news_types }}
+                            <div class="border leading-none rounded-full py-1.5 px-3 trim-text w-fit">{{ title }}</div>
+                            {{ /news_types }}
                         </div>
-                        {{ /if }}
+                        <div class="border leading-none rounded-full py-1.5 px-3 trim-text w-fit">
+                            {{ date | format="d.m.Y" }}{{ if end_date }}-{{ end_date | format="d.m.Y" }}{{ /if }}
+                        </div>
                     </div>
-                </div>
-            </article>
-            {{ if !last }}
-            <hr class="my-10">
-            {{ /if }}
-    {{ /collection:news }}
+                    {{ if youtube_link }}
+                    <div class="aspect-video w-full mb-7.5">
+                        <iframe class="w-full h-full rounded-lg" src="{{ youtube_link | embed_url }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    {{ else }}
+                    <div class="aspect-video w-full mb-7.5">
+                        {{ partial:asset :image="featured_image:id" :alt_glide="featured_image:_alt" class="w-full h-full object-cover rounded-lg" preset="half" }}
+                    </div>
+                    {{ /if }}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-5">
+                        <div>
+                            {{ if overtitle }}
+                            <div class="text-body-lg mb-5">{{ overtitle }}</div>
+                            {{ /if }}
+                            <h2 class="font-bold text-body-lg max-lg:mb-5">{{ title }}</h2>
+                        </div>
+                        <div>
+                            <div class="bard">{{ description }}</div>
+                            {{ if external_link }}
+                            <div class="mt-5 text-right">
+                            <a href="{{ external_link }}" target="_blank" rel="noopener noreferrer" class="font-bold text-body-lg underline hover:opacity-70 transition-opacity duration-300">{{ external_link_text ?? external_link | replace('http://', '') | replace('https://', '') | regex_replace('\?.*', '') }} →</a>
+                            </div>
+                            {{ /if }}
+                        </div>
+                    </div>
+                </article>
+                {{ if !last }}
+                <hr class="my-10">
+                {{ /if }}
+        {{ /collection:news }}
+    </div>
     <div class="absolute inset-0 -z-1 isolate translate-z-0" x-data="parallaxStack()">
         <img
             srcset="/images/filogie_site_fond_apropos-bloc-2_forme_2@1x.webp 1x, /images/filogie_site_fond_apropos-bloc-2_forme_2.webp 2x"
@@ -58,15 +60,15 @@
             data-speed="0.28"
         >
         <img
-            srcset="/images/filogie_site_fond_apropos-bloc-2_forme_3_4@1x.webp 1x, /images/filogie_site_fond_apropos-bloc-2_forme_3_4.webp 2x"
-            src="/images/filogie_site_fond_apropos-bloc-2_forme_3_4.webp"
+            srcset="/images/filogie_site_fond_diffusion-bloc-2_forme_3_4@1x.webp 1x, /images/filogie_site_fond_diffusion-bloc-2_forme_3_4.webp 2x"
+            src="/images/filogie_site_fond_diffusion-bloc-2_forme_3_4.webp"
             alt=""
             class="w-full md:w-85/100 h-auto absolute right-0 md:right-5/100 bottom-3/10 will-change-transform mix-blend-plus-lighter"
             data-speed="0.5"
         >
         <img
-            srcset="/images/filogie_site_fond_apropos-bloc-2_forme_3_4@1x.webp 1x, /images/filogie_site_fond_apropos-bloc-2_forme_3_4.webp 2x"
-            src="/images/filogie_site_fond_apropos-bloc-2_forme_3_4.webp"
+            srcset="/images/filogie_site_fond_diffusion-bloc-2_forme_3_4@1x.webp 1x, /images/filogie_site_fond_diffusion-bloc-2_forme_3_4.webp 2x"
+            src="/images/filogie_site_fond_diffusion-bloc-2_forme_3_4.webp"
             alt=""
             class="w-full md:w-85/100 h-auto absolute right-5/100 md:right-1/10 bottom-35/100 will-change-transform mix-blend-overlay"
             data-speed="0.52"
