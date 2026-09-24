@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "03ef636db545e47564be07914558ddc5",
+    "content-hash": "715acbad3aa6be5ef4447e12f1cf6eae",
     "packages": [
         {
             "name": "ajthinking/archetype",
@@ -5189,16 +5189,16 @@
         },
         {
             "name": "statamic/cms",
-            "version": "v6.27.2",
+            "version": "v6.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statamic/cms.git",
-                "reference": "7a4f419812b46995964755768fa560f7eb2c7809"
+                "reference": "3d8590114b9c58346a951c3b5f818de1bde981af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statamic/cms/zipball/7a4f419812b46995964755768fa560f7eb2c7809",
-                "reference": "7a4f419812b46995964755768fa560f7eb2c7809",
+                "url": "https://api.github.com/repos/statamic/cms/zipball/3d8590114b9c58346a951c3b5f818de1bde981af",
+                "reference": "3d8590114b9c58346a951c3b5f818de1bde981af",
                 "shasum": ""
             },
             "require": {
@@ -5207,7 +5207,7 @@
                 "composer/semver": "^3.4",
                 "ext-json": "*",
                 "guzzlehttp/guzzle": "^6.3 || ^7.0",
-                "inertiajs/inertia-laravel": "^2.0",
+                "inertiajs/inertia-laravel": "^2.0 || ^3.0",
                 "intervention/image": "^3.9.1 || ^4.0",
                 "james-heinrich/getid3": "^1.9.21",
                 "laravel/framework": "^12.40.0 || ^13.0",
@@ -5297,7 +5297,7 @@
             ],
             "support": {
                 "issues": "https://github.com/statamic/cms/issues",
-                "source": "https://github.com/statamic/cms/tree/v6.27.2"
+                "source": "https://github.com/statamic/cms/tree/v6.33.0"
             },
             "funding": [
                 {
@@ -5305,7 +5305,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-12T21:15:11+00:00"
+            "time": "2026-09-16T16:29:23+00:00"
         },
         {
             "name": "statamic/stringy",
